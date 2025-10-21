@@ -4,7 +4,7 @@
     "type": "split",
     "children": [
       {
-        "id": "adb4ae7ddf58d1f5",
+        "id": "7803bfa9d14ac0af",
         "type": "tabs",
         "children": [
           {
@@ -13,12 +13,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "传统暗光增强算法总结.md",
+                "file": "Retinexformer Notes.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "传统暗光增强算法总结"
+              "title": "Retinexformer Notes"
+            }
+          }
+        ]
+      },
+      {
+        "id": "adb4ae7ddf58d1f5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "576f0c27a34d74bf",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "essays_n_guidebooks/Retinexformer.pdf"
+              },
+              "icon": "lucide-file-text",
+              "title": "Retinexformer"
             }
           }
         ]
@@ -142,13 +160,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "传统暗光增强算法总结.md",
+                "file": "Retinexformer Notes.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "传统暗光增强算法总结 的大纲"
+              "title": "Retinexformer Notes 的大纲"
             }
           }
         ],
@@ -171,15 +189,23 @@
   },
   "active": "9be2dcda49374eab",
   "lastOpenFiles": [
+    "essays_n_guidebooks/Retinexformer.pdf",
+    "Retinexformer Notes.md",
+    "essays_n_guidebooks",
+    "essaysn_guidebooks/Retinexformer.pdf",
+    "essaysn_guidebooks",
+    "essay_n_guidebooks/Retinexformer.pdf",
+    "essay_n_guidebooks",
+    "essay",
+    "未命名文件夹",
+    "传统暗光增强算法总结.md",
     "传统暗光增强算法总结.pdf",
     "Pasted image 20251018122050.png",
     "Pasted image 20251018115259.png",
     "Pasted image 20251018112317.png",
     "().md",
-    "传统暗光增强算法总结.md",
     "Pasted image 20251018101626.png",
     "Pasted image 20251018100725.png",
-    "Retinexformer Notes.md",
     "Pasted image 20251018092340.png",
     "Pasted image 20251017144644.png",
     "Pasted image 20251017144325.png",
@@ -188,8 +214,6 @@
     "autoformer_code.md",
     "PatchTST 总结.md",
     "pca.pdf",
-    "Git分支操作.pdf",
-    "Git使用：想要回退到历史提交，但又舍不得删掉当前的更改怎么办？——用分支备份吧！.md",
-    "未命名"
+    "Git使用：想要回退到历史提交，但又舍不得删掉当前的更改怎么办？——用分支备份吧！.md"
   ]
 }
