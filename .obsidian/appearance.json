@@ -4,7 +4,7 @@
   "cssTheme": "Maple",
   "monospaceFontFamily": "JetBrainsMono Nerd Font Mono",
   "nativeMenus": false,
-  "textFontFamily": "LXGW WenKai,PingFang SC,PingFang HK",
-  "interfaceFontFamily": "PingFang SC,Maple Mono NF CN,Hack",
-  "baseFontSize": 18
+  "textFontFamily": "JetBrainsMono Nerd Font,PingFang SC,PingFang HK",
+  "interfaceFontFamily": "PingFang SC,Hack",
+  "baseFontSize": 15
 }

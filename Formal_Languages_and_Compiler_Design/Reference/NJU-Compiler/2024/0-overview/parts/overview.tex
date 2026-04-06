@@ -1,0 +1,107 @@
+% overview.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \fig{width = 0.50\textwidth}{figs/get-started}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    \begin{columns}
+      \column{0.50\textwidth}
+        \fig{width = 0.85\textwidth}{figs/compiler-blackbox}
+      \column{0.50\textwidth}
+        \fig{width = 0.60\textwidth}{figs/keep-calm-open-box}
+    \end{columns}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    IR: Intermediate Representation (中间表示)
+    \vspace{0.50cm}
+
+    \fig{width = 0.80\textwidth}{figs/front-back}
+
+    \vspace{0.50cm}
+    前端 \red{\bf (分析阶段)}: 分析源语言程序, 收集所有必要的信息 \\[8pt]
+    后端 \red{\bf (综合阶段)}: 利用收集到的信息, 生成目标语言程序
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \fig{width = 1.00\textwidth}{figs/ir}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \fig{width = 0.50\textwidth}{figs/talk-cheap}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    \url{https://shorturl.at/bGNUV} (Clang 的四种读法)
+
+    \fig{width = 0.90\textwidth}{figs/clang-homepage}
+
+    \vspace{0.30cm}
+    \url{https://clang.llvm.org/}\\[5pt]
+
+    \pause
+    (\texttt{factorial.c})
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    \fig{width = 0.80\textwidth}{figs/optimizer}
+
+    \vspace{0.50cm}
+    机器无关的中间表示优化
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    \fig{width = 1.00\textwidth}{figs/opt-pass}
+
+    \pause
+    \vspace{0.60cm}
+    {(\texttt{opt.c})}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{columns}
+    \column{0.50\textwidth}
+      \begin{center}
+        编译器前端
+        \fig{width = 0.95\textwidth}{figs/front-end}
+      \end{center}
+    \column{0.50\textwidth}
+      \begin{center}
+        编译器后端
+        \fig{width = 0.50\textwidth}{figs/back-end}
+      \end{center}
+  \end{columns}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{(\texttt{naming.c})}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%

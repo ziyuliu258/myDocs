@@ -1,0 +1,135 @@
+% cymbol.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    {\Large \href{https://github.com/courses-at-nju-by-hfwei/2023-compilers-coding/blob/main/src/main/antlr/cymbol/Cymbol.g4}{Cymbol.g4}}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+	  \fig{width = 0.40\textwidth}{figs/girl-woman}
+    二义性 (ambiguous) 文法
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    {\Large \href{https://github.com/courses-at-nju-by-hfwei/2023-compilers-coding/blob/main/src/main/antlr/ifstat/IfStat.g4}{IfStat.g4}}
+
+    \vspace{0.20cm}
+    \fig{width = 0.70\textwidth}{figs/ifstat-g4}
+    \vspace{0.20cm}
+
+    \texttt{if a then if b then c else d}
+
+    \vspace{0.50cm}
+    \texttt{if a then if b then c else d}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    {\Large \href{https://github.com/courses-at-nju-by-hfwei/2023-compilers-coding/blob/main/src/main/antlr/ifstat/IfStat.g4}{IfStat.g4}}
+  \end{center}
+
+  \fig{width = 0.50\textwidth}{figs/ifstat-g4}
+
+  \pause
+  \vspace{0.30cm}
+  \fig{width = 0.80\textwidth}{figs/ifstat-open-matched-g4}
+
+  \begin{center}
+    {\Large \href{https://github.com/courses-at-nju-by-hfwei/2023-compilers-coding/blob/main/src/main/antlr/ifstat/IfStatOpenMatched.g4}{IfStatOpenMatched.g4}}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    {\Large \href{https://github.com/courses-at-nju-by-hfwei/2023-compilers-coding/blob/main/src/main/antlr/expr/Expr.g4}{Expr.g4}}
+  \end{center}
+
+  \fig{width = 0.30\textwidth}{figs/expr-g4}
+  \begin{center}
+    运算符的\blue{\bf 结合性}带来的\red{\bf 二义性}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    {\Large \href{https://github.com/courses-at-nju-by-hfwei/2023-compilers-coding/blob/main/src/main/antlr/expr/ExprAssoc.g4}{ExprAssoc.g4}}
+
+    \vspace{0.30cm}
+    \fig{width = 0.60\textwidth}{figs/expr-assoc}
+
+    \vspace{0.30cm}
+    右结合运算符、前缀运算符与后缀运算符的结合性
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    {\Large \href{https://github.com/courses-at-nju-by-hfwei/compilers-antlr/blob/main/src/main/antlr/expr/Expr.g4}{Expr.g4}}
+  \end{center}
+
+  \fig{width = 0.30\textwidth}{figs/expr-g4}
+
+  \begin{center}
+    运算符的\blue{\bf 优先级}带来的\red{\bf 二义性}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{columns}
+    \column{0.50\textwidth}
+    \uncover<2->{
+      \begin{center}
+        {\Large \href{https://github.com/courses-at-nju-by-hfwei/2023-compilers-coding/blob/main/src/main/antlr/expr/ExprLR.g4}{ExprLR.g4}}
+        \fig{width = 0.60\textwidth}{figs/expr-lr-g4}
+        左递归 (左结合)
+      \end{center}
+    }
+    \column{0.50\textwidth}
+      \fig{width = 0.60\textwidth}{figs/expr-g4}
+      \vspace{0.20cm}
+      \begin{center}
+        ANTLR 4 可以处理该文法
+      \end{center}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{columns}
+    \column{0.50\textwidth}
+      \fig{width = 0.60\textwidth}{figs/expr-g4}
+      \vspace{0.20cm}
+      \begin{center}
+        ANTLR 4 可以处理该文法
+      \end{center}
+    \column{0.50\textwidth}
+      \pause
+      \begin{center}
+        {\Large \href{https://github.com/courses-at-nju-by-hfwei/2023-compilers-coding/blob/main/src/main/antlr/expr/ExprRR.g4}{ExprRR.g4}}
+        \fig{width = 1.00\textwidth}{figs/expr-rr-g4}
+        右递归 (右结合)
+      \end{center}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
