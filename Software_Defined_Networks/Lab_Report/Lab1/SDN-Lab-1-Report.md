@@ -164,7 +164,7 @@ e30 lo:  e30-eth1:a30-eth1 e30-eth2:a31-eth1 e30-eth3:h300-eth0 e30-eth4:h301-et
 e31 lo:  e31-eth1:a30-eth2 e31-eth2:a31-eth2 e31-eth3:h310-eth0 e31-eth4:h311-eth0
 c0
 ```
-2. 所以可以看到，如果要让`h000`去`ping` `h001`，应该监视的位置为：`h000->eth0` `e00-eth3` `e00->eth1` `e00->eth2` `a00->eth3` `a01->eth3`。因此执行下列命令，并保存抓包结果
+2. 所以可以看到，如果要让`h000`去`ping` `h001`，应该监视的位置为：`h000->eth0` `e00->eth3` `e00->eth1` `e00->eth2` `a00->eth3` `a01->eth3`。因此执行下列命令，并保存抓包结果
 ```bash
 mininet> h000 wireshark -k -i h000-eth0 &
 mininet> sh wireshark -k -i e00-eth3 &
