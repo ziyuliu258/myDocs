@@ -5,7 +5,7 @@
 
 ## Part A文档
 
-![image-20260415142133306](../../attachments/image-20260415142133306.png)
+![image-20260415142133306|599](../../attachments/image-20260415142133306.png)
 
 > [!TIP]
 >
@@ -21,9 +21,9 @@
 5. 如果在上一步中查询Set时，发现对应的Set已满，你需要使用**LRU算法**选择一个被evict的<u>cache line(称为victim)</u>，如果victim是dirty的，你需要将其写入到下一级缓存(或内存)
 6. 在上一步中，由于**inclusive policy**，在检查victim是否dirty前，你必须保证**所有**比当前更高级别的cache不包含当前victim的数据，因此可以尝试***递归地***对较高级cache进行**back invalidation**：
    - 先在victim以上的各级cache中查找当前victim对应的cache line（这一查找策略可以从递归的思想出发设计），如果找到对应的valid的line，则从该地址所在的最高层Cache开始，向下执行evict操作；
-   - evict对应的cache line时，需先将其状态置为invalid。如果该cache  line被标为dirty，那么在evict的时候，需要先将它的数据写回(Write-back)到操作发生时所在的位置的下一级Cache中，并设置下一级对应位置的dirty bit。
-7. 设置这个cache line对应的tag字段，LRU字段和valid字段
-8. 如果访问模式是**写操作**，设置dirty字段
+   - evict对应的cache line时，需先将其状态置为invalid。如果该cache line被标为dirty，那么在evict的时候，需要先将它的数据写回(Write-back)到操作发生时所在的位置的下一级Cache中，并设置下一级对应位置的dirty bit。
+1. 设置这个cache line对应的tag字段，LRU字段和valid字段
+2. 如果访问模式是**写操作**，设置dirty字段
 >反馈：
 >djn学长通过AI润色后，返回了更清晰的版本。
 >![](../../attachments/5243fc719a4bcc636b84f0d0aad37346.png)
