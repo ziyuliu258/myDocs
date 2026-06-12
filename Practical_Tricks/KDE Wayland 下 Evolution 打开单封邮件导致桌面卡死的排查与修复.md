@@ -114,7 +114,7 @@ Exec=env GDK_BACKEND=x11 WEBKIT_DISABLE_COMPOSITING_MODE=1 LIBGL_ALWAYS_SOFTWARE
 
 最终生效的是用户级桌面文件：
 
-[`/home/ziyu/.local/share/applications/org.gnome.Evolution.desktop`](/home/ziyu/.local/share/applications/org.gnome.Evolution.desktop)
+`/home/ziyu/.local/share/applications/org.gnome.Evolution.desktop`
 
 其中当前的关键配置是：
 
