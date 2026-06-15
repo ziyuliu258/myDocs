@@ -1,10 +1,10 @@
 {
   "theme": "moonstone",
-  "accentColor": "#66edff",
+  "accentColor": "#66b0ff",
   "cssTheme": "Maple",
   "monospaceFontFamily": "JetBrainsMono Nerd Font Mono",
   "nativeMenus": false,
-  "textFontFamily": "PingFang SC,PingFang HK",
+  "textFontFamily": "Source Han Serif CN,Noto Serif CJK SC",
   "interfaceFontFamily": "PingFang SC",
-  "baseFontSize": 18
+  "baseFontSize": 15
 }

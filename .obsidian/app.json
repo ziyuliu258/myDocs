@@ -11,5 +11,6 @@
   "readableLineLength": false,
   "useMarkdownLinks": true,
   "newLinkFormat": "relative",
-  "vimMode": false
+  "vimMode": false,
+  "alwaysUpdateLinks": true
 }
