@@ -1,0 +1,293 @@
+\documentclass[UTF8,zihao=-4]{ctexart}
+
+\usepackage[a4paper,margin=1.8cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{array,tabularx,longtable,multirow}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\setCJKmainfont{Source Han Serif CN}
+\setCJKsansfont{Source Han Sans CN}
+\setCJKmonofont{Noto Sans Mono CJK SC}
+\setmonofont{DejaVu Sans Mono}
+
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{第 \thepage 页共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\renewcommand{\arraystretch}{1.25}
+\setlist[enumerate]{leftmargin=2.2em,itemsep=0.45em,topsep=0.2em}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  xleftmargin=1.5em
+}
+
+\newcommand{\blank}[1][3cm]{\underline{\makebox[#1]{}}}
+\newcommand{\score}[1]{\textbf{(#1 分)}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\gto}{\rightarrow}
+\newcommand{\set}[1]{\{#1\}}
+\newcommand{\circnum}[1]{\textcircled{\scriptsize #1}}
+\newcommand{\qtitle}[3]{\vspace{0.6em}\textbf{#1. \score{#2} #3}\par}
+\newcommand{\kw}[1]{\texttt{#1}}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries 形式语言与编译考试题}
+\end{center}
+
+\vspace{0.5em}
+\begin{tabularx}{\textwidth}{@{}lXlXlXl@{}}
+专业班号 & \hrulefill & 姓名 & \hrulefill & 学号 & \hrulefill &
+期中 $\square$\quad 期末 $\checkmark$
+\end{tabularx}
+
+\textbf{注意：}答案一律写在试卷纸上，注明题号。写在试题纸上的答案无效。
+
+\qtitle{1}{10}{判断正误，每题 1 分}
+\begin{enumerate}[label=(\arabic*)]
+  \item $\eps$ 是字母表 $\{a,d\}$ 上的符号串。
+  \item 当一个 DFA 运行过程中消耗掉输入串 $x$ 后，所能到达的状态是
+    $\hat{\delta}(q_0,x)$，其中 $q_0$ 是开始状态。
+  \item 如果 $n$ 状态 DFA 定义的语言是无穷的，那么这个语言中某元素长度大于 $n$。
+  \item ``由 0 和 1 组成的串且串中 0 和 1 的个数相等''，该语言是正则语言。
+  \item 在上下文无关文法中，变元集合可以为空。
+  \item 句子的句柄也是该句子的直接短语。
+  \item 自上而下语法分析过程中，$M$ 为预测分析表，表元素
+    $M[N,c]$ 为产生式 $N\gto\alpha$，那么 $c\in FIRST(\alpha)$。
+  \item 如果语言不允许过程递归调用，那么同一个过程的活动的生命周期都不会相交。
+  \item 编译器的源语言与它的目标语言可以相同。
+  \item 在设计词法分析器时，实数这个词法单位采用全体一种表示比较合理。
+\end{enumerate}
+
+\qtitle{2}{10}{本题共 10 个空，每空 1 分}
+\begin{enumerate}[label=$\diamond$,leftmargin=2em]
+  \item 符号串 $s$ 是语言 $S$ 中的句子，那么 $s\cdot s$ 是语言 \blank[3cm] (1)  的句子。
+  \item NFA $M$ 的开始状态不是结束状态，那么 $M$ 不接受符号串：\blank[3cm] (2)。
+  \item 从声明语句 \kw{int a[2]} 获得的有用信息有：维数是 1；维长是 \blank[2.2cm] (3)；
+    元素类型是 \blank[2.2cm] (4) 等。
+  \item 对照语法树，结点 $N$ 的综合属性值只依赖于 \blank[3cm] (5) 的属性值。
+  \item 有过程声明 \kw{void f(int x, float y)\{\ldots\}}，现要访问 $f$ 的活动记录中 $x$ 单元，
+    那么基址是 \blank[2.6cm] (6)、偏移量是 \blank[2.6cm] (7)。注：不含参数个数单元。
+  \item 表达式 $x-(b+c)*a$ 的逆波兰表示为 \blank[4.2cm] (8)，\\
+    三地址码表示为 \blank[6cm] (9)。
+  \item 程序代码存放在运行时存储空间的 \blank[3cm] (10) 区。
+\end{enumerate}
+
+\qtitle{3}{5}{}
+范围 $-127\sim +127$ 的小整数，用十六进制表示时最多有两位。试用正则表达式定义十六进制表示的小整数。
+举例十六进制 $9$、$-B$、$-1F$、$+7F$ 依次为十进制 $9$、$-11$、$-31$、$+127$。
+
+\qtitle{4}{20}{试完成如下与文法有关的各小题：（默认最左边是开始符号）}
+\begin{enumerate}[label=(\arabic*)]
+  \item 消除文法中的无用符号：
+  \[
+    S\gto Aa\mid\eps,\qquad A\gto Aa,\qquad B\gto Bc\mid d
+  \]
+  \item 消除文法中的 $\eps$-产生式：
+  \[
+    S\gto ABC\mid\eps,\qquad A\gto Bb\mid a,\qquad B\gto Cb\mid\eps,\qquad C\gto\eps
+  \]
+  \item 消除文法中的单位产生式：
+  \[
+    E\gto E+T\mid T,\qquad T\gto F\mid T*F,\qquad F\gto i\mid(E)
+  \]
+  \item 消除文法中的左递归：
+  \[
+    S\gto AB\mid a,\qquad A\gto Ab\mid Ba,\qquad B\gto Ac\mid d
+  \]
+  \item 对于文法
+  \[
+    S\gto P\mid o,\qquad P\gto i(B)SF,\qquad F\gto eS\mid\eps,\qquad B\gto 0\mid 1
+  \]
+  分别写出变元 $S$ 和 $F$ 的 FIRST 集、变元 $F$ 和 $B$ 的 FOLLOW 集。
+  \item 对于文法 $E\gto E/E\mid E\&E\mid i$，写出句子 $i/i\&i$ 的所有最左推导，
+  以及对应的语法树，并判断该文法是不是歧义的。
+\end{enumerate}
+
+\qtitle{5}{10}{}
+填写下页 NFA 迁移表 1 中 ``$\eps$-闭包'' 一列（第一列元素的 $\eps$-闭包），并将该 NFA 转换为 DFA，
+其中 DFA 的状态用 NFA 状态的集合来表示，写出 DFA 的迁移表表示。
+
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+\multicolumn{5}{c}{表 1}\\
+\hline
+ & $a$ & $b$ & $\eps$ & $\eps$-闭包\\
+\hline
+$\to 1$ & $\set{2,3}$ & & & \circnum{1}\\
+2 & & $\set{3}$ & $\set{3,4}$ & \circnum{2}\\
+3 & $\set{4}$ & & & \circnum{3}\\
+4 & & $\set{5}$ & & \circnum{4}\\
+$*5$ & & & $\set{1}$ & \circnum{5}\\
+\hline
+\end{tabular}
+\end{center}
+
+\qtitle{6}{10}{}
+根据文法构造自下而上分析中用于识别活前缀的 DFA，并判断是否有冲突。若有则说明如何消解冲突。
+\[
+  S\gto E=n\mid +,\qquad E\gto n,\qquad E\gto n+
+\]
+
+\qtitle{7}{15}{}
+给定一个类 PASCAL 程序如下，图示当程序执行到 \kw{foo} 过程体时的运行时栈当前内容
+（按照本页右图所示进行，需要填写其中的 20 个问号的值）。
+（注：所有单元长度均为 1，另外活动记录格式如下页图，其中 \kw{sp} 为栈顶指针，
+栈向着地址减小的方向生长。）
+
+\begin{minipage}[t]{0.54\textwidth}
+\begin{lstlisting}
+program test;
+  procedure foo(var y: integer);
+    begin
+      writeln(y);
+    end;
+
+  procedure bar(procedure t; var x: integer);
+    begin
+      t(x);
+    end;
+
+  procedure hool;
+    var x: integer;
+    begin
+      x := 3;
+      bar(foo, x);
+    end;
+
+begin
+  hool;
+end.
+\end{lstlisting}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.41\textwidth}
+\centering
+\begin{tabular}{l}
+$fp\to$\\[1.2em]\\[1.2em]\\[1.2em]\\
+$sp\to$
+\end{tabular}
+\begin{tabular}{|c|}
+\hline
+栈顶单元\\ \hline
+访问链\\ \hline
+控制链\\ \hline
+返回地址\\ \hline
+局部变量\\ \hline
+输出变量\\ \hline
+\end{tabular}
+\quad
+% \begin{tabular}{l}
+% $fp\to$\\[1.2em]\\[1.2em]\\[1.2em]\\
+% $sp\to$
+% \end{tabular}
+
+\vspace{1em}
+\begin{tabular}{|c|}
+\hline
+100:?\\
+099:?\\
+098:?\\
+\hline
+\end{tabular}\quad test
+
+\vspace{0.2em}
+\begin{tabular}{|c|}
+\hline
+097:?\\
+096:?\\
+095:?\\
+094:?\\
+\hline
+\end{tabular}\quad hool
+
+\vspace{0.2em}
+\begin{tabular}{|c|}
+\hline
+093:?\\
+092:?\\
+091:?\\
+090:?\\
+089:?\\
+088:?\\
+087:?\\
+\hline
+\end{tabular}\quad bar(.)
+
+\vspace{0.2em}
+\begin{tabular}{|c|}
+\hline
+086:?\\
+085:?\\
+084:?\\
+083:?\\
+\hline
+\end{tabular}\quad foo(.)
+
+\vspace{0.7em}
+$fp=?$\hspace{3em}$sp=?$
+\end{minipage}
+
+\qtitle{8}{20}{}
+对句子
+\[
+  \kw{if }x<>y\kw{ then while }x<y\lor x=a\kw{ do }y:=a+b
+\]
+进行语义分析，采用如下的属性文法，假设全局变量 \kw{nxq} 初始化为 100，试完成 (1) 和 (2) 题：
+\begin{enumerate}[label=(\arabic*)]
+  \item 画出该句子的语法树，标出树中内结点的各属性的值；
+  \item 写出输出的四元式，过程中四元式的某个元若有变化需按次序列出。
+\end{enumerate}
+
+\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.24\textwidth}X@{}}
+$E\gto i^2\;rop\;i^2$ &
+\{ $E.tc=nxq$; $Gen(jrop,i^2,i^2,0)$; $E.fc=nxq$; $Gen(j,\_,\_,0)$; \}\\
+
+$C\gto \kw{if}\ E\ \kw{then}$ &
+\{ $bp(E.tc,nxq)$; \quad $C.chain:=E.fc$; \}\\
+
+$S\gto C\ S^1$ &
+\{ $S.chain:=merge(C.chain,S^1.chain)$; \}\\
+
+$W\gto \kw{while}$ &
+\{ $W.quad:=nxq$; \}\\
+
+$W^d\gto W\ E\ \kw{do}$ &
+\{ $bp(E.tc,nxq)$; \quad $W^d.chain:=E.fc$; $W^d.quad:=W.quad$; \}\\
+
+$S\gto W^d\ S^1$ &
+\{ $bp(S^1.chain,W^d.quad)$; $Gen(j,\_,\_,W^d.quad)$; $S.chain:=W^d.chain$; \}\\
+
+$S\gto i^2:=i^2$ &
+\{ $Gen(:=,i^2,\_,i^1)$; $S.chain:=0$; \}\\
+
+$E^\circ\gto E^1\ \lor$ &
+\{ $bp(E^1.fc,nxq)$; $E^\circ.tc=E^1.tc$; \}\\
+
+$E\gto E^\circ E^1$ &
+\{ $E.fc=E^1.fc$; $E.tc=merge(E^\circ.tc,E^1.tc)$; \}\\
+
+$S\gto i^2:=i^2+i^3$ &
+\{ $Gen(+,i^2,i^3,i^1)$; $S.chain:=0$; \}\\
+\end{tabularx}
+\normalsize
+
+\vspace{0.5em}
+说明：过程 $bp(c,q)$ 将四元组编号 $q$ 反填到以 $c$ 为链头的链上的每个四元组的第四元；
+过程 $merge(p,q)$ 将 $p$ 链链到 $q$ 链的尾巴上，并返回 $q$ 为结果链头，若 $q$ 为空链则返回 $p$；
+过程 $Gen(t1,t2,t3,t4)$ 产生一个四元组，其编号为 \kw{nxq} 当前值，并将 \kw{nxq} 加 1。
+
+\end{document}
