@@ -1,3 +1,5 @@
+>[!Note]
+>实验代码见本[仓库](https://github.com/ziyuliu258/XJTU-Computer-Architecture-Lab2)。
 ## 实验介绍
 ### 实验目的
 
