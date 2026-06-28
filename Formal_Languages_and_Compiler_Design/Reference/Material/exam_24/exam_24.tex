@@ -1,0 +1,178 @@
+\documentclass[UTF8,zihao=-4]{ctexart}
+
+\usepackage[a4paper,margin=1.8cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{array,tabularx,longtable,multirow}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\setCJKmainfont{Source Han Serif CN}
+\setCJKsansfont{Source Han Sans CN}
+\setCJKmonofont{Noto Sans Mono CJK SC}
+\setmonofont{DejaVu Sans Mono}
+
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{第 \thepage 页共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\renewcommand{\arraystretch}{1.25}
+\setlist[enumerate]{leftmargin=2.2em,itemsep=0.45em,topsep=0.2em}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  xleftmargin=1.5em
+}
+
+\newcommand{\score}[1]{\textbf{(#1 分)}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\gto}{\rightarrow}
+\newcommand{\kw}[1]{\texttt{#1}}
+\newcommand{\qtitle}[3]{\vspace{0.8em}\textbf{#1. \score{#2} #3}\par}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries 形式语言与编译 2024 考试题（回忆版）}\\
+  \vspace{0.3em}
+  {\normalsize 来源：\kw{2024形编考试题回忆版.docx}}\\
+  {\small 参考：\url{https://xjtu.men/t/topic/12940}}
+\end{center}
+
+\textbf{说明：}本文件由回忆版材料整理为 \LaTeX{} 题面。原材料中缺失的数据、选项和图表保持缺失状态，不额外补全为答案。
+
+\qtitle{一}{20}{选择题（10$\times$2）}
+
+回忆版只记录了以下若干题意：
+\begin{enumerate}
+  \item 下面哪个不能识别正则语言。
+  \item 编译的几个步骤，前后端接口。
+  \item 一个字母表不能组成哪个字符串。
+  \item 递归下降分析表的生成。
+  \item 控制流代码翻译，考了 \kw{and}（布尔运算）。
+  \item PDA 的状态转移（PDA 有关的选择题不少于 2 道）。
+  \item 编译器前后端中间组件。
+  \item 什么不属于中间语言（选项里有一个 \kw{sw} 命令，其他是三元、四元）。
+\end{enumerate}
+
+\qtitle{二}{15}{将 NFA 转换为最小 DFA 再转 RE}
+
+回忆版未记录具体 NFA 迁移表或状态图。
+
+\qtitle{三}{5}{词法分析}
+
+已给出一个简单的词法分析 DFA。
+\begin{enumerate}[label=(\arabic*)]
+  \item 根据输入串写出输出。
+  \item 判断事实优先级（AAA 和 ADD，即自加运算和加法运算）。
+\end{enumerate}
+
+\qtitle{四}{15}{文法修剪}
+
+\begin{enumerate}[label=(\arabic*)]
+  \item 修改文法，消除无效符号。
+  \item 修改文法，消除左递归。
+  \item 求某文法的 FIRST、FOLLOW 集并判断其是否为 LL(1) 文法。
+\end{enumerate}
+
+\qtitle{五}{10}{语法分析}
+
+已知句子 \kw{+2++3*(+4)} 和对应的语法树（树已给出）。
+
+文法：
+\[
+E\gto E*E \mid E+E \mid +i \mid (E).
+\]
+
+\begin{enumerate}[label=(\arabic*)]
+  \item 对这个句子进行规范规约；写出语法树的直接短语、句柄。
+  \item 判断文法是否为歧义，为什么。
+\end{enumerate}
+
+\qtitle{六}{10}{写出 itemDFA 并判断冲突}
+
+写出 itemDFA，并判断是否存在冲突；如果存在，写出所有存在的冲突，任意消除其中一个。
+
+文法为：
+\[
+S'\gto E,\qquad E\gto E+E \mid +E \mid +i.
+\]
+
+\qtitle{七}{15}{语义分析}
+
+有程序段：
+\begin{lstlisting}
+int a[2, 3];
+
+void f(int b(), int k){
+  if(k > 0 && k < 3) a[k-1,k] = b(k, 1)
+  else print 0;
+}
+\end{lstlisting}
+
+\begin{enumerate}[label=(\arabic*)]
+  \item 对 \kw{f} 函数声明行进行语义分析（自然语言或者符号表均可）。
+  \item 对下面语句进行分析，写出三地址/四元式。（未像 2017 题一样给出语义动作）
+\end{enumerate}
+
+\begin{lstlisting}
+if(k > 0 && k < 3) a[k-1,k] = b(k, 1)
+else print 0;
+\end{lstlisting}
+
+\qtitle{八}{10}{运行时存储空间组织}
+
+有程序段：
+\begin{lstlisting}
+int foo(int y;){
+  int z;
+
+  void bar(int x; int soo())
+  {
+    if(x > 3) bar(x/3, soo());
+    else z = soo(x);
+    print z;
+  }
+
+  int row(int x)
+  {
+    y = x + 5;
+    return y;
+  }
+
+  bar(y, raw());
+}
+
+foo(6);
+\end{lstlisting}
+
+注：回忆版中调用处写作 \kw{raw()}，而上方过程名写作 \kw{row}，此处保留原文。
+
+栈结构：
+\begin{center}
+\begin{tabular}{|c|}
+\hline
+形参\\
+\hline
+访问链\\
+\hline
+控制链\\
+\hline
+返回地址\\
+\hline
+变量\\
+\hline
+\end{tabular}
+\end{center}
+
+写出执行到 \kw{return y;} 时候的栈快照。（未像 2017 题一样给出表格，需要自己画。）
+
+\end{document}

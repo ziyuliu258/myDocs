@@ -139,3 +139,5 @@ r_brace '}'      [StartOfLine]  Loc=<naming.c:26:1>
 ###### 语法分析
 为解析出来的词法单元流构建一个语法树，如果能构建成功，说明程序合法；否则就说明有语法错误。
 > 用[godbolt.org](https://godbolt.org)查看。或者看示例程序的注释中注明的命令。
+#### 后端
+![250](../../attachments/Pasted%20image%2020260626191258.png)
