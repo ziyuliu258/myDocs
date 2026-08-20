@@ -1,0 +1,42 @@
+# 参考文献（原文保留）
+
+为保持作者名、题名、年份和链接的可检索性，本节保留原论文的英文书目信息；正文中的作者—年份引用与下列条目一一对应。
+
+- Mark Boss, Zixuan Huang, Aaryaman Vasishta, and Varun Jampani. *Sf3d: Stable fast 3d mesh reconstruction with uv-unwrapping and illumination disentanglement.* arXiv preprint arXiv:2408.00653, 2024.
+- Angel X. Chang, Thomas Funkhouser, Leonidas Guibas, Pat Hanrahan, Qixing Huang, Zimo Li, Silvio Savarese, Manolis Savva, Shuran Song, Hao Su, Jianxiong Xiao, Li Yi, and Fisher Yu. *Shapenet: An information-rich 3d model repository,* 2015.
+- Zoey Chen, Aaron Walsman, Marius Memmel, Kaichun Mo, Alex Fang, Karthikeya Vemuri, Alan Wu, Dieter Fox, and Abhishek Gupta. *Urdformer: A pipeline for constructing articulated simulation environments from real-world images.* arXiv preprint arXiv:2405.11656, 2024.
+- Erwin Coumans and Yunfei Bai. *Pybullet, a python module for physics simulation for games, robotics and machine learning,* 2016.
+- Deemos. *Rodin text-to-3D gen-1 (0525) v0.5,* 2024. URL: https://hyperhuman.deemos.com/rodin.
+- Matt Deitke, Ruoshi Liu, Matthew Wallingford, Huong Ngo, Oscar Michel, Aditya Kusupati, Alan Fan, Christian Laforte, Vikram Voleti, Samir Yitzhak Gadre, et al. *Objaverse-xl: A universe of 10m+ 3d objects.* Advances in Neural Information Processing Systems, 36, 2024.
+- Herbert Edelsbrunner, David Kirkpatrick, and Raimund Seidel. *On the shape of a set of points in the plane.* IEEE Transactions on Information Theory, 29(4):551–559, 1983.
+- Martin Ester, Hans-Peter Kriegel, Jörg Sander, Xiaowei Xu, et al. *A density-based algorithm for discovering clusters in large spatial databases with noise.* In KDD, volume 96, pp. 226–231, 1996.
+- Haoran Geng, Helin Xu, Chengyang Zhao, Chao Xu, Li Yi, and He Wang. *Gapartnet: Cross-category domain-generalizable object perception and manipulation via generalizable and actionable parts.* arXiv preprint arXiv:2211.05272, 2022.
+- Edward J Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, and Weizhu Chen. *Lora: Low-rank adaptation of large language models.* arXiv preprint arXiv:2106.09685, 2021.
+- Ruizhen Hu, Wenchao Li, Oliver van Kaick, Ariel Shamir, Hao Zhang, and Hui Huang. *Learning to predict part mobility from a single static snapshot.* ACM Transactions on Graphics (Proc. SIGGRAPH Asia), 36(6):227:1–13, 2017.
+- Nan Jiang, Tengyu Liu, Zhexuan Cao, Jieming Cui, Yixin Chen, He Wang, and Yixin Zhu. *Full-body articulated human-object interaction.* In ICCV, 2023.
+- Zhenyu Jiang, Cheng-Chun Hsu, and Yuke Zhu. *Ditto: Building digital twins of articulated objects from interaction.* In CVPR, 2022.
+- Nikita Karaev, Ignacio Rocco, Benjamin Graham, Natalia Neverova, Andrea Vedaldi, and Christian Rupprecht. *Cotracker: It is better to track together.* arXiv preprint arXiv:2307.07635, 2023.
+- Dooyoung Kim, Taewook Ha, Jinseok Hong, Seonji Kim, Selin Choi, Heejeong Ko, and Woontack Woo. *Meta-object: Interactive and multisensory virtual object learned from the real world for the post-metaverse.* arXiv preprint arXiv:2404.17179, 2024.
+- Jiahui Lei, Congyue Deng, Bokui Shen, Leonidas Guibas, and Kostas Daniilidis. *NAP: Neural 3d articulated object prior.* In Thirty-seventh Conference on Neural Information Processing Systems, 2023. URL: https://openreview.net/forum?id=TTkklyFv7e.
+- Jiayi Liu, Ali Mahdavi-Amiri, and Manolis Savva. *PARIS: Part-level reconstruction and motion analysis for articulated objects.* In Proceedings of the IEEE International Conference on Computer Vision (ICCV), 2023a.
+- Jiayi Liu, Hou In Ivan Tam, Ali Mahdavi-Amiri, and Manolis Savva. *CAGE: Controllable Articulation GEneration.* 2023b.
+- Jiayi Liu, Manolis Savva, and Ali Mahdavi-Amiri. *Survey on modeling of articulated objects,* 2024.
+- Shilong Liu, Zhaoyang Zeng, Tianhe Ren, Feng Li, Hao Zhang, Jie Yang, Chunyuan Li, Jianwei Yang, Hang Su, Jun Zhu, et al. *Grounding dino: Marrying dino with grounded pre-training for open-set object detection.* arXiv preprint arXiv:2303.05499, 2023c.
+- Viktor Makoviychuk, Lukasz Wawrzyniak, Yunrong Guo, Michelle Lu, Kier Storey, Miles Macklin, David Hoeller, Nikita Rudin, Arthur Allshire, Ankur Handa, et al. *Isaac gym: High performance gpu-based physics simulation for robot learning.* arXiv preprint arXiv:2108.10470, 2021.
+- Zhao Mandi, Yijia Weng, Dominik Bauer, and Shuran Song. *Real2code: Reconstruct articulated objects via code generation.* arXiv preprint arXiv:2406.08474, 2024.
+- Kaichun Mo, Shilin Zhu, Angel X. Chang, Li Yi, Subarna Tripathi, Leonidas J. Guibas, and Hao Su. *Partnet: A large-scale benchmark for fine-grained and hierarchical part-level 3d object understanding,* 2018.
+- Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, et al. *Learning transferable visual models from natural language supervision.* In International Conference on Machine Learning, pp. 8748–8763. PMLR, 2021.
+- Antonin Raffin, Ashley Hill, Adam Gleave, Anssi Kanervisto, Maximilian Ernestus, and Noah Dormann. *Stable-baselines3: Reliable reinforcement learning implementations.* Journal of Machine Learning Research, 22(268):1–8, 2021.
+- Tianhe Ren, Shilong Liu, Ailing Zeng, Jing Lin, Kunchang Li, He Cao, Jiayu Chen, Xinyu Huang, Yukang Chen, Feng Yan, Zhaoyang Zeng, Hao Zhang, Feng Li, Jie Yang, Hongyang Li, Qing Jiang, and Lei Zhang. *Grounded sam: Assembling open-world models for diverse visual tasks,* 2024.
+- Baptiste Roziere, Jonas Gehring, Fabian Gloeckle, Sten Sootla, Itai Gat, Xiaoqing Ellen Tan, Yossi Adi, Jingyu Liu, Tal Remez, Jérémy Rapin, et al. *Code llama: Open foundation models for code.* arXiv preprint arXiv:2308.12950, 2023.
+- John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov. *Proximal policy optimization algorithms.* arXiv preprint arXiv:1707.06347, 2017.
+- Gemini Team, Rohan Anil, Sebastian Borgeaud, Yonghui Wu, Jean-Baptiste Alayrac, Jiahui Yu, Radu Soricut, Johan Schalkwyk, Andrew M Dai, Anja Hauth, et al. *Gemini: a family of highly capable multimodal models.* arXiv preprint arXiv:2312.11805, 2023.
+- Emanuel Todorov, Tom Erez, and Yuval Tassa. *Mujoco: A physics engine for model-based control.* In 2012 IEEE/RSJ International Conference on Intelligent Robots and Systems, pp. 5026–5033. IEEE, 2012.
+- Marcel Torne, Anthony Simeonov, Zechu Li, April Chan, Tao Chen, Abhishek Gupta, and Pulkit Agrawal. *Reconciling reality through simulation: A real-to-sim-to-real approach for robust manipulation.* arXiv, 2024.
+- Yijia Weng, Bowen Wen, Jonathan Tremblay, Valts Blukis, Dieter Fox, Leonidas Guibas, and Stan Birchfield. *Neural implicit representation for building digital twins of unknown articulated objects.* In CVPR, 2024.
+- Fanbo Xiang, Yuzhe Qin, Kaichun Mo, Yikuan Xia, Hao Zhu, Fangchen Liu, Minghua Liu, Hanxiao Jiang, Yifu Yuan, He Wang, Li Yi, Angel X. Chang, Leonidas J. Guibas, and Hao Su. *Sapien: A simulated part-based interactive environment,* 2020.
+- Jiale Xu, Weihao Cheng, Yiming Gao, Xintao Wang, Shenghua Gao, and Ying Shan. *Instantmesh: Efficient 3d mesh generation from a single image with sparse-view large reconstruction models.* arXiv preprint arXiv:2404.07191, 2024.
+- Gengshan Yang, Minh Vo, Natalia Neverova, Deva Ramanan, Andrea Vedaldi, and Hanbyul Joo. *Banmo: Building animatable 3d neural models from many casual videos.* In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, pp. 2863–2873, 2022.
+- Vicky Zeng, Tabitha Edith Lee, Jacky Liang, and Oliver Kroemer. *Visual identification of articulated object parts,* 2021.
+- Qian-Yi Zhou, Jaesik Park, and Vladlen Koltun. *Open3D: A modern library for 3D data processing.* arXiv:1801.09847, 2018.
+- Yuke Zhu, Josiah Wong, Ajay Mandlekar, Roberto Martín-Martín, Abhishek Joshi, Soroush Nasiriany, and Yifeng Zhu. *robosuite: A modular simulation framework and benchmark for robot learning.* arXiv preprint arXiv:2009.12293, 2020.

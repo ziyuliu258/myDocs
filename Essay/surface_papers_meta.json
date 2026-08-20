@@ -1,0 +1,394 @@
+[
+  {
+    "arxiv": "2311.17050",
+    "title": "Surf-D: High-Quality Surface Generation for Arbitrary Topologies using Diffusion Models",
+    "year": 2024,
+    "authors": [
+      {
+        "name": "Zhengming Yu",
+        "affiliations": []
+      },
+      {
+        "name": "Zhiyang Dou ⋆",
+        "affiliations": []
+      },
+      {
+        "name": "Xiaoxiao Long",
+        "affiliations": []
+      },
+      {
+        "name": "Cheng Lin",
+        "affiliations": []
+      },
+      {
+        "name": "Zekun Li",
+        "affiliations": []
+      },
+      {
+        "name": "Yuan Liu",
+        "affiliations": []
+      },
+      {
+        "name": "Norman Müller",
+        "affiliations": []
+      },
+      {
+        "name": "Taku Komura",
+        "affiliations": []
+      },
+      {
+        "name": "Marc Habermann",
+        "affiliations": []
+      },
+      {
+        "name": "Christian Theobalt",
+        "affiliations": []
+      },
+      {
+        "name": "Xin Li",
+        "affiliations": []
+      },
+      {
+        "name": "Wenping Wang",
+        "affiliations": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2311.17050"
+  },
+  {
+    "arxiv": "2410.03417",
+    "title": "Img2CAD: Conditioned 3D CAD Model Generation from Single Image with Structured Visual Geometry",
+    "year": 2024,
+    "authors": [
+      {
+        "name": "Tianrun Chen",
+        "affiliations": []
+      },
+      {
+        "name": "Chunan Yu",
+        "affiliations": []
+      },
+      {
+        "name": "Yuanqi Hu",
+        "affiliations": []
+      },
+      {
+        "name": "Jing Li",
+        "affiliations": []
+      },
+      {
+        "name": "Tao Xu",
+        "affiliations": []
+      },
+      {
+        "name": "Runlong Cao",
+        "affiliations": []
+      },
+      {
+        "name": "Lanyun Zhu",
+        "affiliations": []
+      },
+      {
+        "name": "Ying Zang",
+        "affiliations": []
+      },
+      {
+        "name": "Yong Zhang",
+        "affiliations": []
+      },
+      {
+        "name": "Zejian Li",
+        "affiliations": []
+      },
+      {
+        "name": "Linyun Sun",
+        "affiliations": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2410.03417"
+  },
+  {
+    "arxiv": "2409.17106",
+    "title": "Text2CAD: Generating Sequential CAD Models from Beginner-to-Expert Level Text Prompts",
+    "year": 2024,
+    "authors": [
+      {
+        "name": "Mohammad Sadil Khan ∗",
+        "affiliations": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2409.17106"
+  },
+  {
+    "arxiv": "2502.20732",
+    "title": "CADDreamer: CAD Object Generation from Single-View Images",
+    "year": 2025,
+    "authors": [
+      {
+        "name": "Yuan Li",
+        "affiliations": []
+      },
+      {
+        "name": "Cheng Lin",
+        "affiliations": []
+      },
+      {
+        "name": "Yuan Liu",
+        "affiliations": []
+      },
+      {
+        "name": "Xiaoxiao Long",
+        "affiliations": []
+      },
+      {
+        "name": "Chenxu Zhang",
+        "affiliations": []
+      },
+      {
+        "name": "Ningna Wang",
+        "affiliations": []
+      },
+      {
+        "name": "Wenping Wang",
+        "affiliations": []
+      },
+      {
+        "name": "Xiaohu Guo",
+        "affiliations": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2502.20732"
+  },
+  {
+    "arxiv": "2504.14257",
+    "title": "HoLa: B-Rep Generation using a Holistic Latent Representation",
+    "year": 2025,
+    "authors": [
+      {
+        "name": "Yilin Liu",
+        "affiliations": []
+      },
+      {
+        "name": "Duoteng Xu",
+        "affiliations": []
+      },
+      {
+        "name": "Xingyao Yu",
+        "affiliations": []
+      },
+      {
+        "name": "Xiang Xu",
+        "affiliations": []
+      },
+      {
+        "name": "Daniel Cohen-Or",
+        "affiliations": []
+      },
+      {
+        "name": "Hao Zhang",
+        "affiliations": []
+      },
+      {
+        "name": "Hui Huang",
+        "affiliations": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2504.14257"
+  },
+  {
+    "arxiv": "2503.13110",
+    "title": "DTGBrepGen: A Novel B-Rep Generative Model through Decoupling Topology and Geometry",
+    "year": 2025,
+    "authors": [
+      {
+        "name": "Jing Li",
+        "affiliations": []
+      },
+      {
+        "name": "Yihang Fu",
+        "affiliations": []
+      },
+      {
+        "name": "Falai Chen",
+        "affiliations": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2503.13110"
+  },
+  {
+    "arxiv": "2511.22171",
+    "title": "BrepGPT: Autoregressive B-Rep Generation with Voronoi Half-Patch",
+    "year": 2025,
+    "authors": [
+      {
+        "name": "Pu Li",
+        "affiliations": []
+      },
+      {
+        "name": "Wenhao Zhang",
+        "affiliations": []
+      },
+      {
+        "name": "Weize Quan",
+        "affiliations": []
+      },
+      {
+        "name": "Biao Zhang",
+        "affiliations": []
+      },
+      {
+        "name": "Peter Wonka",
+        "affiliations": []
+      },
+      {
+        "name": "Dong-Ming Yan",
+        "affiliations": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2511.22171"
+  },
+  {
+    "arxiv": "2512.03018",
+    "title": "AutoBrep: Autoregressive B-Rep Generation with Unified Topology and Geometry",
+    "year": 2025,
+    "authors": [
+      {
+        "name": "Xiang Xu",
+        "affiliations": []
+      },
+      {
+        "name": "Pradeep Kumar Jayaraman",
+        "affiliations": []
+      },
+      {
+        "name": "Joseph G. Lambourne",
+        "affiliations": []
+      },
+      {
+        "name": "Yilin Liu",
+        "affiliations": []
+      },
+      {
+        "name": "Durvesh Malpure",
+        "affiliations": []
+      },
+      {
+        "name": "Pete Meltzer",
+        "affiliations": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2512.03018"
+  },
+  {
+    "arxiv": "2509.21150",
+    "title": "CAD-Tokenizer: Towards Text-based CAD Prototyping via Modality-Specific Tokenization",
+    "year": 2025,
+    "authors": [
+      {
+        "name": "Ruiyu Wang",
+        "affiliations": []
+      },
+      {
+        "name": "Shizhao Sun",
+        "affiliations": []
+      },
+      {
+        "name": "Weijian Ma",
+        "affiliations": []
+      },
+      {
+        "name": "Jiang Bian",
+        "affiliations": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2509.21150"
+  },
+  {
+    "arxiv": "2603.11831",
+    "title": "Towards High-Fidelity CAD Generation via LLM-Driven Program Generation and Text-Based B-Rep Primitive Grounding",
+    "year": 2026,
+    "authors": [
+      {
+        "name": "Jiahao Li",
+        "affiliations": []
+      },
+      {
+        "name": "Qingwang Zhang",
+        "affiliations": []
+      },
+      {
+        "name": "Qiuyu Chen",
+        "affiliations": []
+      },
+      {
+        "name": "Guozhan Qiu",
+        "affiliations": []
+      },
+      {
+        "name": "Yunzhong Lou",
+        "affiliations": []
+      },
+      {
+        "name": "Xiangdong Zhou",
+        "affiliations": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2603.11831"
+  },
+  {
+    "arxiv": "2602.21105",
+    "title": "BrepGaussian: CAD reconstruction from Multi-View Images with Gaussian Splatting",
+    "year": 2026,
+    "authors": [
+      {
+        "name": "Jiaxing Yu",
+        "affiliations": []
+      },
+      {
+        "name": "Dongyang Ren",
+        "affiliations": []
+      },
+      {
+        "name": "Hangyu Xu",
+        "affiliations": []
+      },
+      {
+        "name": "Zhouyuxiao Yang",
+        "affiliations": []
+      },
+      {
+        "name": "Yuanqi Li",
+        "affiliations": []
+      },
+      {
+        "name": "Jie Guo",
+        "affiliations": []
+      },
+      {
+        "name": "Zhengkang Zhou",
+        "affiliations": []
+      },
+      {
+        "name": "Yanwen Guo",
+        "affiliations": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2602.21105"
+  },
+  {
+    "arxiv": "2604.24479",
+    "title": "Zero-to-CAD: Agentic Synthesis of Interpretable CAD Programs at Million-Scale Without Real Data",
+    "year": 2026,
+    "authors": [
+      {
+        "name": "Mohammadmehdi Ataei",
+        "affiliations": []
+      },
+      {
+        "name": "Pradeep Kumar Jayaraman",
+        "affiliations": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2604.24479"
+  }
+]

@@ -1,0 +1,823 @@
+[
+  {
+    "arxiv": "1703.04079",
+    "title": "SurfNet: Generating 3D Shape Surfaces Using Deep Residual Networks",
+    "year": 2017,
+    "authors": [
+      {
+        "name": "Ayan Sinha",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Asim Unmesh",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Qixing Huang",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Karthik Ramani",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      }
+    ],
+    "source": "https://arxiv.org/html/1703.04079"
+  },
+  {
+    "arxiv": "1901.05103",
+    "title": "DeepSDF: Learning Continuous Signed Distance Functions for Shape Representation",
+    "year": 2019,
+    "authors": [],
+    "source": ""
+  },
+  {
+    "arxiv": "2003.12181",
+    "title": "ParSeNet: A Parametric Surface Fitting Network for 3D Point Clouds",
+    "year": 2020,
+    "authors": [
+      {
+        "name": "Gopal Sharma1",
+        "affs": [],
+        "thanks": []
+      },
+      {
+        "name": "Difan Liu1",
+        "affs": [],
+        "thanks": []
+      },
+      {
+        "name": "Subhransu Maji1",
+        "affs": [],
+        "thanks": []
+      },
+      {
+        "name": "Evangelos Kalogerakis1",
+        "affs": [],
+        "thanks": []
+      },
+      {
+        "name": "Siddhartha Chaudhuri2,3",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Radomír Měch2",
+        "affs": [],
+        "thanks": []
+      },
+      {
+        "name": "1",
+        "affs": [],
+        "thanks": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2003.12181"
+  },
+  {
+    "arxiv": "2006.13782",
+    "title": "Neural Splines: Fitting 3D Surfaces with Infinitely-Wide Neural Networks",
+    "year": 2021,
+    "authors": [
+      {
+        "name": "First Author Institution1 Institution1 address firstauthor@i1.org",
+        "affs": [],
+        "thanks": []
+      },
+      {
+        "name": "Second Author Institution2 First line of institution2 address secondauthor@i2.org",
+        "affs": [],
+        "thanks": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2006.13782"
+  },
+  {
+    "arxiv": "2104.14547",
+    "title": "NURBS-Diff: A Differentiable Programming Module for NURBS",
+    "year": 2022,
+    "authors": [],
+    "source": ""
+  },
+  {
+    "arxiv": "2201.00112",
+    "title": "SurfGen: Adversarial 3D Shape Synthesis with Explicit Surface Discriminators",
+    "year": 2022,
+    "authors": [
+      {
+        "name": "First Author",
+        "affs": [
+          "Affiliation:",
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Second Author",
+        "affs": [
+          "Affiliation:",
+          "Affiliation:"
+        ],
+        "thanks": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2201.00112"
+  },
+  {
+    "arxiv": "2210.14457",
+    "title": "ComplexGen: CAD Reconstruction by B-Rep Chain Complex Generation",
+    "year": 2022,
+    "authors": [
+      {
+        "name": "Shichao Dong",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Jin Wang",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Renhe Ji",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Jiajun Liang",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Haoqiang Fan",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Zheng Ge",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2210.14457"
+  },
+  {
+    "arxiv": "2203.13944",
+    "title": "SolidGen: An Autoregressive Model for Direct B-Rep Synthesis",
+    "year": 2023,
+    "authors": [
+      {
+        "name": "Pradeep Kumar Jayaraman",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Joseph G. Lambourne",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Nishkrit Desai",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Karl D.D. Willis",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Aditya Sanghi",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Nigel J.W. Morris",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2203.13944"
+  },
+  {
+    "arxiv": "2311.17050",
+    "title": "Surf-D: High-Quality Surface Generation for Arbitrary Topologies using Diffusion Models",
+    "year": 2024,
+    "authors": [
+      {
+        "name": "Zhengming Yu",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": [
+          "Thanks:"
+        ]
+      },
+      {
+        "name": "Zhiyang Dou⋆",
+        "affs": [
+          "Affiliation:",
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Xiaoxiao Long",
+        "affs": [
+          "Affiliation:",
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Cheng Lin",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Zekun Li",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Yuan Liu",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Norman Müller",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Taku Komura",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Marc Habermann",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Christian Theobalt",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Xin Li",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Wenping Wang",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2311.17050"
+  },
+  {
+    "arxiv": "2401.15563",
+    "title": "BrepGen: A B-Rep Generative Diffusion Model with Structured Latent Geometry",
+    "year": 2024,
+    "authors": [
+      {
+        "name": "Xiang Xu",
+        "affs": [
+          "Affiliation:",
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Joseph G. Lambourne",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Pradeep Kumar Jayaraman",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Zhengqing Wang",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Karl D.D. Willis",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Yasutaka Furukawa",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2401.15563"
+  },
+  {
+    "arxiv": "2411.10848",
+    "title": "NeuroNURBS: Learning Efficient Surface Representations for 3D Solids",
+    "year": 2024,
+    "authors": [
+      {
+        "name": "Jiajie Fan",
+        "affs": [
+          "Affiliation:",
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Babak Gholami",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Thomas Bäck",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Hao Wang",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2411.10848"
+  },
+  {
+    "arxiv": "2312.04962",
+    "title": "Point2CAD: Reverse Engineering CAD Models from 3D Point Clouds",
+    "year": 2024,
+    "authors": [
+      {
+        "name": "Yujia Liu",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Anton Obukhov",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Jan Dirk Wegner",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Konrad Schindler",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      }
+    ],
+    "source": "https://ar5iv.labs.arxiv.org/html/2312.04962"
+  },
+  {
+    "arxiv": "2409.16294",
+    "title": "GenCAD: Image-Conditioned Computer-Aided Design Generation with Transformer-Based Contrastive Representation and Diffusion Priors",
+    "year": 2024,
+    "authors": [
+      {
+        "name": "Md Ferdous Alam",
+        "affs": [
+          "Affiliation:",
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Faez Ahmed",
+        "affs": [
+          "Affiliation:",
+          "Affiliation:"
+        ],
+        "thanks": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2409.16294"
+  },
+  {
+    "arxiv": "2410.03417",
+    "title": "Img2CAD: Conditioned 3D CAD Model Generation from Single Image with Structured Visual Geometry",
+    "year": 2024,
+    "authors": [
+      {
+        "name": "Tianrun Chen",
+        "affs": [],
+        "thanks": []
+      },
+      {
+        "name": "Chunan Yu",
+        "affs": [],
+        "thanks": []
+      },
+      {
+        "name": "Yuanqi Hu",
+        "affs": [],
+        "thanks": []
+      },
+      {
+        "name": "Jing Li",
+        "affs": [],
+        "thanks": []
+      },
+      {
+        "name": "Tao Xu",
+        "affs": [],
+        "thanks": []
+      },
+      {
+        "name": "Runlong Cao",
+        "affs": [],
+        "thanks": []
+      },
+      {
+        "name": "Lanyun Zhu",
+        "affs": [],
+        "thanks": []
+      },
+      {
+        "name": "Ying Zang",
+        "affs": [],
+        "thanks": []
+      },
+      {
+        "name": "Yong Zhang",
+        "affs": [],
+        "thanks": []
+      },
+      {
+        "name": "Zejian Li",
+        "affs": [],
+        "thanks": []
+      },
+      {
+        "name": "Linyun Sun",
+        "affs": [],
+        "thanks": [
+          "Thanks:",
+          "Thanks:",
+          "Thanks:",
+          "Thanks:",
+          "Thanks:",
+          "Thanks:"
+        ]
+      }
+    ],
+    "source": "https://arxiv.org/html/2410.03417"
+  },
+  {
+    "arxiv": "2409.17106",
+    "title": "Text2CAD: Generating Sequential CAD Models from Beginner-to-Expert Level Text Prompts",
+    "year": 2024,
+    "authors": [
+      {
+        "name": "Mohammad Sadil Khan∗†1,2,3",
+        "affs": [],
+        "thanks": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2409.17106"
+  },
+  {
+    "arxiv": "2502.20732",
+    "title": "CADDreamer: CAD Object Generation from Single-View Images",
+    "year": 2025,
+    "authors": [
+      {
+        "name": "Yuan Li",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Cheng Lin",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Yuan Liu",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Xiaoxiao Long",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Chenxu Zhang",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Ningna Wang",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Wenping Wang",
+        "affs": [
+          "Affiliation:",
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Xiaohu Guo",
+        "affs": [],
+        "thanks": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2502.20732"
+  },
+  {
+    "arxiv": "2504.14257",
+    "title": "HoLa: B-Rep Generation using a Holistic Latent Representation",
+    "year": 2025,
+    "authors": [
+      {
+        "name": "Yilin Liu",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Duoteng Xu",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Xingyao Yu",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Xiang Xu",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Daniel Cohen-Or",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Hao Zhang",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Hui Huang",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      }
+    ],
+    "source": "https://arxiv.org/html/2504.14257"
+  },
+  {
+    "arxiv": "2503.13110",
+    "title": "DTGBrepGen: A Novel B-Rep Generative Model through Decoupling Topology and Geometry",
+    "year": 2025,
+    "authors": [
+      {
+        "name": "Jing Li",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Yihang Fu",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Falai Chen",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": [
+          "Thanks:"
+        ]
+      }
+    ],
+    "source": "https://arxiv.org/html/2503.13110"
+  },
+  {
+    "arxiv": "2511.22171",
+    "title": "BrepGPT: Autoregressive B-Rep Generation with Voronoi Half-Patch",
+    "year": 2025,
+    "authors": [
+      {
+        "name": "Pu Li",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Wenhao Zhang",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Weize Quan",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Biao Zhang",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Peter Wonka",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Dong-Ming Yan",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      }
+    ],
+    "source": "https://ar5iv.labs.arxiv.org/html/2511.22171",
+    "errors": [
+      "https://arxiv.org/html/2511.22171: URLError: <urlopen error _ssl.c:1064: The handshake operation timed out>"
+    ]
+  },
+  {
+    "arxiv": "2512.03018",
+    "title": "AutoBrep: Autoregressive B-Rep Generation with Unified Topology and Geometry",
+    "year": 2025,
+    "authors": [
+      {
+        "name": "Xiang Xu",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Pradeep Kumar Jayaraman",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Joseph G. Lambourne",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Yilin Liu",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Durvesh Malpure",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      },
+      {
+        "name": "Pete Meltzer",
+        "affs": [
+          "Affiliation:"
+        ],
+        "thanks": []
+      }
+    ],
+    "source": "https://ar5iv.labs.arxiv.org/html/2512.03018",
+    "errors": [
+      "https://arxiv.org/html/2512.03018: URLError: <urlopen error timed out>"
+    ]
+  }
+]

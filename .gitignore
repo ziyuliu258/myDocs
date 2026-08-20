@@ -1,13 +1,15 @@
-.obsidian/workspace.json
 .DS_Store
 Computer_Organisation/计组笔记.pdf
 Computer_Organisation/计组复习提纲.pdf
 .obsidian/plugins/text-extractor/
 .vscode/
 .obsidian/
-.obsidian/appearance.json
 Advisor_Info_Collected
 .cache/
 Books/
 .codex/
 .agents/
+.claudian/
+.claude/
+.agentcad/
+copilot/
