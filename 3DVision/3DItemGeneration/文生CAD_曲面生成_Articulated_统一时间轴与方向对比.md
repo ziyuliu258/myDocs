@@ -1,6 +1,6 @@
 # 文生 CAD、曲面生成与 Articulated Object：统一时间轴与研究方向对比
 
-> 整理日期：2026-08-19  
+> 整理日期：2026-08-20
 > 资料范围：`3DItemGeneration` 文件夹中的文生 CAD、articulated object、CAD Agent/SDK，以及《曲面生成相关论文调研.md》。  
 > 研究对象：静态 CAD、曲面/mesh 几何、articulated object 三条相关但不同的目标路线；Flow Matching、diffusion、LLM/agent 等仅作为跨路线方法标记。
 
@@ -40,23 +40,32 @@ CAD kernel / collision / motion / physics harness
 Agent diagnosis + local repair
 ```
 
+### 1.1 代表性论文与技术分支时间轴
+
+下图只保留会改变研究问题或系统形态的关键节点；它不是完整论文清单。红色描边标出本次新增的 Design Alignment、ReCAD、IterCAD、ArtisanCAD、HierCAD 与 RA-CAD。
+
+![CAD、B-Rep、Design Intent 与 Articulated 3D 代表性论文时间轴（马卡龙配色）](../../attachments/3DItemGeneration/representative_paper_timeline_macaron.png)
+
+*可编辑矢量源：[representative_paper_timeline_macaron.svg](../../attachments/3DItemGeneration/representative_paper_timeline_macaron.svg)。*
+
 ---
 
 ## 2. 文档口径与引用量说明
 
-### 2.1 三条主线
+### 2.1 三条对象主线 + 一条横切子线
 
 | 主线 | 典型输出 | 解决的问题 | 是否等同于 articulated object |
 |---|---|---|---|
 | 静态/非 articulated CAD | CSG、sketch-extrude、CAD history、B-Rep、STEP、Build123d/CadQuery | 生成一个静态、可编辑或可制造的 CAD 实体 | 否 |
 | 曲面/mesh 几何生成 | SDF、显式 surface、B-spline、NURBS、B-Rep face、mesh、PBR asset | 表达或生成复杂、光滑、非规则的几何表面与静态视觉资产 | 否；它是几何表示/生成能力 |
 | Articulated object | part/link、parent-child、joint type、axis、origin、limit、URDF | 生成可以运动、装配、仿真的对象 | 是 |
+| **Constraint / design-intent（横切子线）** | sketch primitives、constraints、dimensions、feature dependency、editable parameters | 让参数修改后仍保持预期关系；决定“可编辑”是否真实成立 | 否；它横切 static CAD program/history，并可扩展到 articulated connector/joint contract |
 
 ### 2.2 时间和引用量口径
 
 - 年份优先使用首次公开年份；正式会议年份不同的论文写成 `预印本/正式发表`。
 - 三张主线论文表中的“发表（若有）”遵循**正式会议/期刊优先**：若当次核验未找到正式发表版本，才标 `arXiv（预印本）`；这不等同于“永远未接收”。
-- 引用量是 2026-08-19 附近的公开索引快照，不同数据库会有显著差异。
+- 引用量是 2026-08-19 附近的公开索引快照，不同数据库会有显著差异；2026-08-20 新增论文未重新估算引用量，以“未重计/未稳定收录”标注。
 - `≈` 表示近似值；`区间` 表示不同来源对同一论文的差异；`0/未稳定收录` 表示论文很新或没有可靠的学术索引记录。
 - 旧论文引用量高，不能直接说明它比 2025/2026 年论文更适合当前任务；应同时看引用速度、输出表示和下游可用性。
 - 作者机构按论文首页/项目页的 affiliation 集合归并，不重复列出每位作者的编号对应关系。论文标题均链接到论文、项目页或官方出版页面。
@@ -78,13 +87,19 @@ Agent diagnosis + local repair
 | 2024 | [BrepGen](https://www.research.autodesk.com/publications/brepgen/) | ACM TOG / SIGGRAPH 2024 | Autodesk Research、Simon Fraser University | noise/partial B-Rep → watertight B-Rep | structured latent tree + hierarchical diffusion；包含 NURBS/Bezier 等面 | 约64–150 |
 | 2024 | [TransCAD](https://cvi2snt.github.io/transcad/) | ECCV 2024 | University of Luxembourg、Artec 3D | point cloud → loop-extrusion sequence | hierarchical Transformer + loop refiner；点云逆向 CAD | ≈16 |
 | 2024 | [Text2CAD](https://sadilkhan.github.io/text2cad-project/) | NeurIPS 2024 Spotlight | DFKI、RPTU、MindGarage、BITS Pilani | text → CAD command sequence | BERT + autoregressive Transformer；文本条件 CAD history | 约2–30 |
+| 2025 | [Aligning Constraint Generation with Design Intent](https://www.research.autodesk.com/publications/aligning-constraint-generation-design-intent-parametric-cad/) | ICCV 2025 | Autodesk Research | unconstrained 2D sketch → constraints/dimensions | constraint solver feedback + alignment post-training；以 edit behavior 定义 design intent | —（本次未重计） |
 | 2025/26 | [B-repLer](https://yilinliu77.github.io/brepler.github.io/) | SIGGRAPH 2026 | UCL、University of Edinburgh、Adobe Research | source B-Rep + text → edited B-Rep | mLLM/Transformer 规划 edit latent，Flow Matching 生成编辑后 B-Rep；**生成式编辑** | 0/未稳定收录 |
 | 2025/26 | [NURBGen](https://arxiv.org/abs/2511.06194) | AAAI 2026 | DFKI、RPTU、MindGauge | text → NURBS/analytic JSON → B-Rep | Qwen3-4B LoRA；面级 NURBS 与 analytic primitive 混合表示 | 0/未稳定收录 |
+| 2025/26 | [ReCAD](https://ojs.aaai.org/index.php/AAAI/article/view/37544) | AAAI 2026 | Fudan University | text/image → parameterized CAD code | hierarchical primitives + SFT + GRPO/RLVR；几何与语义联合 reward | —（本次未重计） |
 | 2026 | [STEP-LLM](https://arxiv.org/abs/2601.12641) | DATE 2026 | Northwestern University | text → STEP entities | DFS reserialization、RAG-SFT、GRPO；直接生成工业交换格式 | 0 |
 | 2026 | [Flatten The Complex](https://arxiv.org/abs/2601.17733) | SIGGRAPH 2026 | Nanjing University | noise/image/point cloud → B-Rep | k-cell particles + Rectified Flow Transformer 联合生成拓扑与几何 | 0/未稳定收录 |
 | 2026 | [CADSmith](https://arxiv.org/abs/2603.26512) | arXiv 2026（预印本） | Carnegie Mellon University | text → CadQuery → CAD solid | Planner/Coder/Executor/Validator/Refiner；OpenCASCADE 几何验证 | 0 |
+| 2026-06 | [IterCAD](https://arxiv.org/abs/2606.13368) | arXiv 2026（预印本） | 多机构联合团队（见论文首页） | drawing/text/source code + edit → multi-turn CadQuery | OCCT sandbox、visual/dimension feedback、geometry-aware RL、CD-TR | 0/未稳定收录 |
 | 2026 | [Arko-T](https://arxiv.org/abs/2606.30429) | arXiv 2026（technical report） | BitInf、Wuhan University、Nanjing Tech | text → Build123d program → solid | 结构化 design state、执行过滤、参数化 construction intent | 0 |
 | 2026 | [DualBrep](https://arxiv.org/abs/2606.31579) | SIGGRAPH 2026 | Autodesk Research | point cloud/image/noise → watertight B-Rep / STEP | SDF+UDF dual fields 的 latent Flow Matching；neural rebuilder 显式化 B-Rep | 0/未稳定收录 |
+| 2026-07 | [ArtisanCAD](https://arxiv.org/abs/2607.05750) | arXiv 2026（预印本） | 多机构联合团队（见论文首页） | variant request + expert skill → CATIA-native B-Rep | expert skill distillation + CAD-IR + CATIA-MCP + multi-view rewrite | 0/未稳定收录 |
+| 2026-07 | [HierCAD](https://arxiv.org/abs/2607.11339) | arXiv 2026（预印本） | 多机构联合团队（见论文首页） | text → hierarchical CAD sequence | part/face/loop reasoning + Structure Alignment and Parameter Grounding | 0/未稳定收录 |
+| 2026-08 | [RA-CAD](https://arxiv.org/abs/2608.05714) | arXiv 2026（预印本） | 多机构联合团队（见论文首页） | text → code ↔ execution critique/rewrite | learned post-execution critique + trajectory-level GRPO | 0/未稳定收录 |
 
 ### 3.1 这条线的阶段性变化
 
@@ -103,16 +118,20 @@ SolidGen、SECAD-Net、BrepGen、TransCAD 和 Text2CAD 分别从 B-Rep、sketch-
 - **History-first**：生成 sketch、extrude、Boolean 等设计步骤，便于编辑和回放。
 - **B-Rep-first**：直接生成 vertices、edges、faces 或曲面，几何表达更自由，但设计意图更弱。
 
-#### 2025–2026：从“生成 CAD”变成“生成可执行 CAD 程序”
+#### 2025–2026：从“生成 CAD”变成“对齐、执行、批评并复用 CAD 程序”
 
-NURBGen、STEP-LLM、CADSmith 和 Arko-T 体现出四种不同的结构化目标：
+NURBGen、STEP-LLM、Arko-T 继续扩展表示与程序能力；Design Alignment、ReCAD、CADSmith、IterCAD、ArtisanCAD、HierCAD 与 RA-CAD 又把问题推进到监督、反馈和工业知识层：
 
 - NURBGen：面级 NURBS 表示；
 - STEP-LLM：工业实体图与 STEP reference；
 - Arko-T：通用参数化 Build123d program；
-- CADSmith：多 agent CadQuery + kernel metrics + VLM judge。
+- Design Alignment：constraint solver feedback 对齐编辑行为；
+- ReCAD：以 verifiable geometry/semantic reward 做 CAD RLVR；
+- HierCAD：先对齐 construction topology，再 ground 数值参数；
+- CADSmith / IterCAD / RA-CAD：从外部验证、多模态 sandbox 到可学习 critique policy；
+- ArtisanCAD：把专家 feature history、macro 与 verification rules 蒸馏为可执行 CAD-IR skill。
 
-这说明 static CAD 的竞争重点正在从“token vocabulary 设计”转向“表达能力、可执行性和验证闭环”。
+这说明 static CAD 的竞争重点正在从“token vocabulary 设计”转向“结构监督、design intent、执行反馈、专家知识复用和可定位修复”。
 
 ---
 
@@ -286,6 +305,7 @@ HoLa、DTGBrepGen、BrepGPT、AutoBrep、BrepGaussian、FutureCAD 和 Zero-to-CA
 | 2025 | [CADDreamer](https://arxiv.org/abs/2502.20732) `[B]` | CVPR 2025 | single image → CAD/B-Rep | 单视图到可编辑曲面 CAD |
 | 2025 | [DTGBrepGen](https://arxiv.org/abs/2503.13110) `[B]` | CVPR 2025 | noise → B-Rep | 拓扑和几何解耦 |
 | 2025 | [HoLa](https://arxiv.org/abs/2504.14257) `[B]` | ACM TOG / SIGGRAPH 2025 | text/image/point/sketch → B-Rep | 多模态 condition + holistic latent |
+| 2025 | [Design Alignment](https://arxiv.org/abs/2504.13178) `[2D][C]` | ICCV 2025 | unconstrained sketch → aligned constraints | constraint solver feedback 让编辑保持 design intent |
 | 2025 | [FreeArt3D](https://czzzzh.github.io/FreeArt3D/) `[A][M]` | SIGGRAPH Asia 2025 | multi-state RGB → textured articulated mesh | 预训练 3D prior + per-instance joint optimization |
 | 2025 | [CAD-Tokenizer](https://arxiv.org/abs/2509.21150) `[C]` | ICLR 2026 | text → CAD tokens | 为 CAD 设计专用语言单元 |
 | 2025 | [NURBGen](https://arxiv.org/abs/2511.06194) `[B][C]` | AAAI 2026 | text → NURBS JSON → B-Rep | LLM 直接生成高保真曲面参数 |
@@ -296,6 +316,7 @@ HoLa、DTGBrepGen、BrepGPT、AutoBrep、BrepGaussian、FutureCAD 和 Zero-to-CA
 | 2025 | [BrepGPT](https://arxiv.org/abs/2511.22171) `[B]` | arXiv 2025（预印本） | noise → B-Rep | Voronoi half-patch autoregression |
 | 2025/26 | [TRELLIS.2](https://arxiv.org/abs/2512.14692) `[M][FM]` | CVPR 2026 | image → PBR 3D asset | O-Voxel structured latent + 4B Flow Matching |
 | 2025 | [AutoBrep](https://arxiv.org/abs/2512.03018) `[B]` | arXiv 2025（预印本） | noise → B-Rep | 统一拓扑与几何的自回归 B-Rep |
+| 2025/26 | [ReCAD](https://ojs.aaai.org/index.php/AAAI/article/view/37544) `[C]` | AAAI 2026 | text/image → parameterized CAD code | hierarchical primitive learning + SFT + RLVR |
 | 2025/26 | [B-repLer](https://yilinliu77.github.io/brepler.github.io/) `[B][FM][E]` | SIGGRAPH 2026 | source B-Rep+text → edited B-Rep | language-guided freeform B-Rep latent editing |
 | 2026 | [STEP-LLM](https://arxiv.org/abs/2601.12641) `[B]` | DATE 2026 | text → STEP | LLM+RAG+RL 直接生成工业实体图 |
 | 2026 | [Flatten The Complex](https://arxiv.org/abs/2601.17733) `[B][FM]` | SIGGRAPH 2026 | noise/image/point → B-Rep | k-cell particle 的 geometry-topology joint flow |
@@ -307,8 +328,12 @@ HoLa、DTGBrepGen、BrepGPT、AutoBrep、BrepGaussian、FutureCAD 和 Zero-to-CA
 | 2026 | [Zero-to-CAD](https://arxiv.org/abs/2604.24479) `[C]` | arXiv 2026（预印本） | text/image → CAD program | 大规模 agentic CAD synthesis |
 | 2026 | [Articraft](https://arxiv.org/abs/2605.15187) `[A][C]` | arXiv 2026（预印本） | text/image → code + mesh/URDF/tests | 受限 SDK + trusted compile/probe/test harness |
 | 2026 | [LAM](https://openaccess.thecvf.com/content/CVPR2026/html/Gao_LAM_Language_Articulated_Object_Modelers_CVPR_2026_paper.html) `[A][C]` | CVPR 2026 | text → link/joint/geometry code + URDF | code-first articulation + visual self-repair |
+| 2026-06 | [IterCAD](https://arxiv.org/abs/2606.13368) `[C][E]` | arXiv 2026（预印本） | drawing/text/edit → multi-turn CadQuery | executable sandbox + visual/dimension feedback + geometry-aware RL |
 | 2026 | [DualBrep](https://arxiv.org/abs/2606.31579) `[B][FM]` | SIGGRAPH 2026 | point cloud/image/noise → watertight B-Rep/STEP | dual continuous fields 让 geometry+topology 联合 flow sampling |
 | 2026 | [Arko-T](https://arxiv.org/abs/2606.30429) `[C]` | arXiv 2026（technical report） | text → Build123d program → solid | foundation model 保留参数、约束和 construction intent |
+| 2026-07 | [ArtisanCAD](https://arxiv.org/abs/2607.05750) `[C][B]` | arXiv 2026（预印本） | variant request + expert skill → CATIA B-Rep | expert skill + CAD-IR + CATIA-MCP + visual refinement |
+| 2026-07 | [HierCAD](https://arxiv.org/abs/2607.11339) `[C]` | arXiv 2026（预印本） | text → hierarchical CAD sequence | global procedure/local topology reasoning + parameter grounding |
+| 2026-08 | [RA-CAD](https://arxiv.org/abs/2608.05714) `[C]` | arXiv 2026（预印本） | text → code ↔ critique/rewrite | post-execution critique 成为可学习的 agent policy |
 
 ### 6.1 从这条总时间轴看到的偏好迁移
 
@@ -317,7 +342,7 @@ HoLa、DTGBrepGen、BrepGPT、AutoBrep、BrepGaussian、FutureCAD 和 Zero-to-CA
 | 2017–2021 | surface、SDF、CSG、sketch、CAD sequence | shape/point cloud/sketch | 怎样表示一个形状 | **表示学习优先**，几乎没有语言和 agent |
 | 2022–2024 | B-Rep、NURBS、CAD history、part-joint graph | point cloud、image，随后 text | 怎样同时恢复 geometry 与 topology/constraint | **结构化 CAD 与 articulated prior 出现** |
 | 2025 | mesh/PBR latent、multi-modal B-Rep、URDF | image、text、video、point cloud | 怎样从真实或开放输入得到完整资产 | **多模态与高保真 geometry 优先**；Flow Matching 首先进入 mesh/part 生成 |
-| 2026 | B-Rep particles/dual fields、CAD code、connector/joint schema | text/image/point cloud | 怎样让资产可编辑、可装配、可验证 | **Flow Matching 进入 B-Rep；Agent + kernel/harness 进入工程闭环** |
+| 2026 | B-Rep particles/dual fields、CAD code/CAD-IR、connector/joint schema | text/image/drawing/point cloud/expert skill | 怎样让资产可编辑、可装配、可验证并保持设计意图 | **Flow Matching 进入 B-Rep；Agent + kernel/harness 进入工程闭环；critique、structure grounding 与 expert skill 开始被显式学习/复用** |
 
 这张表给出的关键结论是：研究偏好不是从“diffusion 被 Flow Matching 完全替代”，而是从单一几何表示转向**分层系统**。连续生成器（diffusion 或 Flow Matching）负责复杂几何，离散 schema/program 负责设计和运动语义，agent/harness 负责执行、验证和修复。
 
@@ -361,9 +386,9 @@ parts + connectors + joints + URDF
 
 | 类型 | 代表 | 优势 | 不足 |
 |---|---|---|---|
-| 直接端到端模型 | Text2CAD、TransCAD、ArtFormer、URDF-Anything | 推理路径短，训练和 benchmark 清晰 | OOD 错误难解释，难以保证执行和物理正确 |
+| 直接端到端模型 | Text2CAD、HierCAD、ReCAD、TransCAD、ArtFormer、URDF-Anything | 推理路径短，训练和 benchmark 清晰 | OOD 错误难解释，难以保证执行和物理正确 |
 | 曲面/B-Rep 生成模型 | BrepGen、HoLa、AutoBrep、Surf-D | 几何质量和拓扑表达潜力高 | 输出未必保留 design intent，验证复杂 |
-| Agentic code generation | CADSmith、LAM、ArtiCAD、Articraft、Zero-to-CAD | 可执行、可修复、可加入工具和 hard tests | 系统复杂，效果依赖 SDK、harness 和测试设计 |
+| Agentic code generation | CADSmith、IterCAD、ArtisanCAD、RA-CAD、LAM、ArtiCAD、Articraft、Zero-to-CAD | 可执行、可修复、可加入工具、专家 skill 和 hard tests | 系统复杂，效果依赖 SDK、harness、反馈粒度和测试设计 |
 | 点云/图像重建 | Point2CAD、TransCAD、URDF-Anything、BrepGaussian | 适合真实物体和数字孪生 | 观测不完整，语义和结构存在歧义 |
 | 多视角/扩散优化 | FreeArt3D、ATOP、CADDreamer | 视觉保真度和真实对象重建能力强 | 通常逐实例优化，难以直接编辑或批量验证 |
 
@@ -383,6 +408,8 @@ parts + connectors + joints + URDF
 - STEP/B-Rep entity graph；
 - NURBS/analytic JSON；
 - Build123d/CadQuery/FreeCAD program；
+- hierarchical construction tree / parameter grounding；
+- CAD-IR（参数、工具、操作、实体依赖、verification rules）；
 - part/link/joint schema；
 - connector/frame contract；
 - URDF 与测试定义。
@@ -391,13 +418,13 @@ parts + connectors + joints + URDF
 
 #### B. Agentic generation + execution feedback
 
-CADSmith、LAM、ArtiCAD、Articraft、Zero-to-CAD 表明，研究重心已经从“模型一次输出”转向：
+CADSmith、LAM、ArtiCAD、Articraft、Zero-to-CAD、IterCAD、ArtisanCAD、RA-CAD 表明，研究重心已经从“模型一次输出”转向：
 
 ```text
 generate → compile/execute → measure/render/simulate → diagnose → repair
 ```
 
-其中最有价值的不是 agent 数量，而是反馈是否可定位、不可被模型篡改、可以触发局部修复。
+其中最有价值的不是 agent 数量，而是反馈是否可定位、不可被模型篡改、可以触发局部修复。IterCAD 进一步让 drawing/render/dimension feedback 进入多轮训练，RA-CAD 把 post-execution critique 本身变成可优化的策略动作，ArtisanCAD 则把专家 procedure 与 checks 固化进 CAD-IR skill。
 
 #### C. Point cloud/vision 作为结构感知入口
 
@@ -420,6 +447,19 @@ NURBS、SDF、B-Rep diffusion 和 Gaussian reconstruction 正逐渐进入统一 
 #### E. Flow Matching 进入结构化几何，而非只做视觉 mesh
 
 2025 年的 TripoSG、ArticFlow、SPARK 和 TRELLIS.2 先证明它能承担通用 mesh、材质资产与 joint-conditioned part geometry；2026 年的 Flatten The Complex 和 DualBrep 已将其推进到 B-Rep 的 geometry-topology 联合生成。增长的不是“所有生成都改用 Flow Matching”，而是将它作为**连续几何生成器**，与 schema/program、CAD kernel 和验证器组合。
+
+#### F. Constraint / design-intent 从表示变成对齐目标
+
+这条线的变化可概括为：
+
+```text
+Vitruvion：生成 primitive + constraint graph
+    → Design Alignment：用 solver feedback 对齐“修改后的行为”
+    → ReCAD / HierCAD：把结构、层级 primitive 与参数 grounding 加入 3D CAD code 学习
+    → ArtisanCAD：把 feature dependency、参数范围与 verification rules 固化进 expert CAD-IR skill
+```
+
+关键变化是评测目标从“初始形状是否相似”变成“参数修改后，结构关系、可执行性和设计意图是否仍成立”。这条横切子线可以直接连接到 articulated CAD：connector、joint frame 和 motion limits 本质上也是需要在编辑与装配中保持的关系约束。
 
 ### 8.2 相对变少或被降级为组件
 
@@ -513,12 +553,13 @@ Hard validation
 
 优先级建议如下：
 
-1. **Articraft / ArtiCAD / LAM / CADSmith**：直接对应 agent、SDK、程序和验证。
-2. **NURBGen / BrepGen / HoLa / AutoBrep**：理解复杂曲面和 B-Rep 如何进入生成系统。
-3. **Flatten The Complex / DualBrep / B-repLer / SPARK**：理解 Flow Matching 如何和 B-Rep、自由曲面、part/URDF 组合；把它们作为“几何生成器”阅读，而不是当作完整的 CAD/agent 系统。
-4. **URDF-Anything / ArtLLM / Articulate-Anything**：理解点云、3D LLM、视觉和 articulation。
-5. **DeepCAD / SkexGen / Text2CAD / TransCAD**：理解 CAD history、文本条件和点云逆向工程的基础表示。
-6. **DeepSDF / ParSeNet / ComplexGen / Point2CAD**：补齐隐式曲面、参数曲面和 B-Rep 重建的几何基础。
+1. **IterCAD / RA-CAD / ArtisanCAD / CADSmith**：比较 visual/dimension feedback、learned critique、expert skill/CAD-IR 与程序化验证。
+2. **Design Alignment / HierCAD / ReCAD**：补齐 constraint/design intent、层级结构监督与 CAD RLVR。
+3. **Articraft / ArtiCAD / LAM**：理解 agent、SDK、connector、joint program 和 articulated validation。
+4. **NURBGen / BrepGen / HoLa / AutoBrep**：理解复杂曲面和 B-Rep 如何进入生成系统。
+5. **Flatten The Complex / DualBrep / B-repLer / SPARK**：理解 Flow Matching 如何和 B-Rep、自由曲面、part/URDF 组合；把它们作为“几何生成器”阅读，而不是当作完整的 CAD/agent 系统。
+6. **URDF-Anything / ArtLLM / Articulate-Anything**：理解点云、3D LLM、视觉和 articulation。
+7. **DeepCAD / SkexGen / Text2CAD / TransCAD**：理解 CAD history、文本条件和点云逆向工程的基础表示。
 
 最推荐的连续阅读顺序是：
 
@@ -526,12 +567,14 @@ Hard validation
 DeepCAD
   → SkexGen
   → Text2CAD
+  → Design Alignment / HierCAD / ReCAD
   → TransCAD / Point2CAD
   → BrepGen / HoLa / NURBGen
   → TripoSG / SPARK / Flatten The Complex / DualBrep
   → NAP / ArtFormer
   → URDF-Anything / ArtLLM
   → CADSmith
+  → IterCAD / RA-CAD / ArtisanCAD
   → LAM / ArtiCAD / Articraft
 ```
 
@@ -576,3 +619,9 @@ DeepCAD
 - [Flatten The Complex / SIGGRAPH 2026](https://s2026.conference-schedule.org/organization/?inst=346272429785125037)
 - [B-repLer / SIGGRAPH 2026](https://yilinliu77.github.io/brepler.github.io/)
 - [DualBrep / SIGGRAPH 2026](https://s2026.conference-schedule.org/presentation/?id=papers_295&sess=sess142)
+- [Aligning Constraint Generation with Design Intent / ICCV 2025](https://www.research.autodesk.com/publications/aligning-constraint-generation-design-intent-parametric-cad/)
+- [ReCAD / AAAI 2026](https://ojs.aaai.org/index.php/AAAI/article/view/37544)
+- [IterCAD / arXiv 2026](https://arxiv.org/abs/2606.13368)
+- [ArtisanCAD / arXiv 2026](https://arxiv.org/abs/2607.05750)
+- [HierCAD / arXiv 2026](https://arxiv.org/abs/2607.11339)
+- [RA-CAD / arXiv 2026](https://arxiv.org/abs/2608.05714)

@@ -1,6 +1,6 @@
 # 3D 场景、单体物体与 Agentic CAD：统一研究地图
 
-> 更新：2026-08-12  
+> 更新：2026-08-20
 > 范围：第一层区分多物体场景/交互生成与单体物体生成；第二层再把单体物体分为 articulated 与 static，并比较端到端学习模型、逐实例优化和 agentic pipeline。  
 > 图像原则：下文的 pipeline 图优先直接引用论文/arXiv/官方项目页；NAP 与 ATOP 的官方页面没有可稳定嵌入的静态 pipeline 图，因此使用从其论文 PDF 原图截取的本地副本，并在图下注明来源。
 
@@ -24,7 +24,7 @@
 |---|---|---|
 | **A. 场景生成 / 不同物体交互** | Interact3D、Sketch2CAD (2023)、SimFoundry、SceneSmith、SceneAssistant、SAGE、ArtiWorld | interacting object composition、multi-primitive CAD scene、room/house scene、real-to-sim scene、articulation-aware simulation world |
 | **B1. 单体物体 — Articulated** | NAP、ArtFormer、ArtLLM、URDF-Anything、FreeArt3D、ATOP、Articulate-Anything、LAM、ArtiCAD、Articraft、**ArticFlow、SPARK** | 一个带 part/link 与 joint kinematics 的对象或装配体 |
-| **B2. 单体物体 — Static / Geometry** | DeepCAD、SkexGen、Text2CAD、STEP-LLM、TransCAD、Sketch2CAD (2020)、CSGNet、UCSG-Net、SolidGen、BrepGen、SECAD-Net、Arko-T、CADSmith、NURBGen、**Flatten The Complex、DualBrep、B-repLer、TripoSG、TRELLIS.2**；Vitruvion 是 2D 参数化草图子问题 | 一个静态、可编辑的 CAD/CSG construction program、NURBS/STEP/B-Rep，或静态 mesh/PBR 资产 |
+| **B2. 单体物体 — Static / Geometry** | DeepCAD、SkexGen、Text2CAD、STEP-LLM、TransCAD、Sketch2CAD (2020)、CSGNet、UCSG-Net、SolidGen、BrepGen、SECAD-Net、Arko-T、CADSmith、NURBGen、**ReCAD、IterCAD、ArtisanCAD、HierCAD、RA-CAD、Flatten The Complex、DualBrep、B-repLer、TripoSG、TRELLIS.2**；Vitruvion 与 **Design Alignment** 是 2D 参数化草图/约束子问题 | 一个静态、可编辑的 CAD/CSG construction program、NURBS/STEP/B-Rep，或静态 mesh/PBR 资产 |
 
 ```text
 本文覆盖的 3D 生成 / 重建工作
@@ -38,12 +38,13 @@
     │   ├── ArtLLM / URDF-Anything / FreeArt3D / ATOP / ArticFlow / SPARK
     │   └── Articulate-Anything / LAM / ArtiCAD / Articraft
     └── B2. Static
-        ├── DeepCAD / SkexGen / Text2CAD / CADSmith
+        ├── DeepCAD / SkexGen / Text2CAD / HierCAD / ReCAD
+        ├── CADSmith / IterCAD / ArtisanCAD / RA-CAD
         ├── STEP-LLM / TransCAD / Sketch2CAD (2020)
         ├── CSGNet / UCSG-Net / SECAD-Net
         ├── SolidGen / BrepGen / Flatten The Complex / DualBrep / B-repLer
         ├── Arko-T / NURBGen / TripoSG / TRELLIS.2
-        └── Vitruvion（2D sketch 子问题）
+        └── Vitruvion / Design Alignment（2D sketch/constraint 子问题）
 ```
 
 ### 分类边界：按“最终在生成什么”判断
@@ -58,6 +59,9 @@
 - **Text2CAD** 的建模 history 不是 kinematic joint，所以属于 **B2 单体 static object**。
 - **ArtLLM** 即便最终以 mesh 表示几何，也显式预测同一功能资产的部件及关节配置，因而属于 **B1**；mesh 与 CAD program 的可编辑性不同，不改变其 articulated 单体分类。
 - **CADSmith、NURBGen** 的目标都是静态 CAD 几何：前者生成并验证 CadQuery 程序，后者以 NURBS 曲面表达高保真 CAD；二者都不输出对象内部的 link–joint kinematics，属于 **B2**。
+- **ReCAD、HierCAD** 是学习式 static CAD program generation：前者用 RLVR 增强多模态参数化代码生成，后者用层级结构监督与参数 grounding 改善 construction sequence；它们都不输出 joint。
+- **IterCAD、ArtisanCAD、RA-CAD** 是 static CAD 的 agentic/code-first 分支：分别强调多轮视觉—执行闭环、专家程序知识与 CAD-IR、以及可学习的执行后 critique policy，仍属于 **B2** 而不是 articulated agent。
+- **Aligning Constraint Generation with Design Intent in Parametric CAD** 只解决 2D engineering sketch 的约束生成与编辑传播，和 Vitruvion 一样作为 B2 的 constraint/design-intent 上游子问题保留。
 - **Arko-T** 输出单个静态、参数化 Build123d 设计程序，不生成 link/joint，因此属于 **B2**；其“structured design”指 feature、parameter、constraint、history 与 attachment，不是 articulated kinematics。
 - **Vitruvion** 只生成 2D parametric sketch，不是完整 3D object；但它是 static CAD 中“primitive + constraint”表示的关键子问题，因此作为 B2 的边界工作保留。
 - **Sketch2CAD (2023)** 输出一组对象的 shape、position、rotation、size，再由 Grasshopper 重建场景，属于 **A**；不要与 **Sketch2CAD (2020)** 的单体 CAD 交互式建模系统混淆。
@@ -490,12 +494,12 @@ LLM 修改 model.py
 
 | 路线                                            | 论文                                                         | 输出表示                                                        | 主要价值                                          |
 | --------------------------------------------- | ---------------------------------------------------------- | ----------------------------------------------------------- | --------------------------------------------- |
-| **完整 3D CAD construction sequence / program** | DeepCAD、SkexGen、Text2CAD、TransCAD、Sketch2CAD (2020)、Arko-T、CADSmith | sketch / extrude / Boolean 等操作与参数，或可执行 Build123d / CadQuery program | 保留建模过程、命名参数和设计意图，便于重放与编辑                      |
+| **完整 3D CAD construction sequence / program** | DeepCAD、SkexGen、Text2CAD、TransCAD、Sketch2CAD (2020)、Arko-T、CADSmith、ReCAD、IterCAD、ArtisanCAD、HierCAD、RA-CAD | sketch / extrude / Boolean 等操作与参数，或可执行 Build123d / CadQuery / CATIA procedure | 保留建模过程、命名参数和设计意图，便于重放、执行、反馈修复与编辑 |
 | **CSG / sketch-extrude 逆向解析**                 | CSGNet、UCSG-Net、SECAD-Net                                  | primitive + Boolean program，或 sketch + extrusion parameters | 从已有 2D/3D shape 恢复紧凑、可解释的建模程序                 |
 | **直接 STEP / B-Rep**                           | STEP-LLM、SolidGen、BrepGen、Flatten The Complex、B-repLer、DualBrep | STEP entities，或 B-Rep vertices / edges / faces 及拓扑          | 跳过 feature-history vocabulary，直接建模工业 CAD 实体结构 |
 | **NURBS surface CAD**                           | NURBGen                                                     | LLM 驱动的 NURBS 曲面建模                                           | 面向高保真工业曲面；调研报告强调不依赖设计历史数据                 |
 | **静态 mesh / PBR geometry prior**              | TripoSG、TRELLIS.2                                          | mesh / PBR-textured 3D asset                                      | 几何保真与开放输入覆盖强；但不保留 CAD design intent              |
-| **2D parametric sketch 子问题**                  | Vitruvion                                                  | primitives + geometric constraints                          | 保留设计约束并支持 edit propagation；但不是完整 3D solid     |
+| **2D parametric sketch / design-intent 子问题** | Vitruvion、Aligning Constraint Generation with Design Intent | primitives + geometric constraints | 生成可解、可编辑且在参数修改后保持关系的约束图；但不是完整 3D solid |
 
 #### 3.2.1 DeepCAD — A Deep Generative Network for Computer-Aided Design Models
 
@@ -732,6 +736,78 @@ LLM 修改 model.py
 - **分类位置**：**B2 direct B-Rep generation / reverse engineering**。静态工业几何是目标；连续 flow 只承担其生成过程。
 - **引用快照**：0/未稳定收录。
 
+#### 3.2.21 Aligning Constraint Generation with Design Intent in Parametric CAD
+
+- **论文 / 发表**：[Autodesk Research 官方页](https://www.research.autodesk.com/publications/aligning-constraint-generation-design-intent-parametric-cad/) · [arXiv:2504.13178](https://arxiv.org/abs/2504.13178)（ICCV 2025）。
+- **输入 / 输出**：无约束或欠约束的 2D engineering sketch primitives → constraint / dimension set，使草图 fully constrained，并在参数修改时保持预期几何关系。
+- **方法**：把 Fusion constraint solver 变成可验证反馈源，对 constraint generator 做 SFT 以及 DPO、Expert Iteration、RLOO/GRPO 等 alignment post-training；不是只复现训练集中的约束组合。
+- **结果与意义**：最佳方法使 fully constrained sketches 达到 93%，对照为 SFT 34%、未 SFT 8.9%；更重要的是把 **design intent** 定义为“模型被修改时，原有关系能否按预期传播”，把 CAD 评测从初始几何相似度推进到编辑行为。
+- **分类位置**：**B2 边界：2D constraint/design-intent 子问题**。它不生成完整 3D solid，也不是推理期 agent；constraint solver 主要提供训练反馈和可验证评分。
+
+![Design Alignment Figure 1 — constraint-solver feedback and design-intent preservation](https://arxiv.org/html/2504.13178v2/teaser.png)
+
+*原图：Design Alignment Figure 1；[arXiv HTML](https://arxiv.org/html/2504.13178)。*
+
+#### 3.2.22 ReCAD — Reinforcement Learning Enhanced Parametric CAD Model Generation with Vision-Language Models
+
+- **论文 / 发表**：[AAAI 官方论文页](https://ojs.aaai.org/index.php/AAAI/article/view/37544) · [arXiv:2512.06328](https://arxiv.org/abs/2512.06328)（AAAI 2026）。
+- **输入 / 输出**：自然语言（抽象或精确描述）或单张 CAD 图像 → 可执行、可编辑的 parameterized CAD code。
+- **方法**：先把 sketch–extrude CAD sequence 重写为层级参数化 code，并用 VLM 生成配对文本做 SFT；再以 parameterized code 作为 off-policy guidance 做 GRPO/RL，联合优化几何精度与语义一致性。层级 primitive curriculum 从 curve、face、sketch、sketch-extrude 逐步学习到 multi-step model。
+- **分类位置**：**B2 multimodal program generation / RLVR**。RL 发生在模型后训练阶段；推理主路径仍是 image/text → code，不是基于运行结果多轮修复的 agent loop。
+- **最该记住的点**：ReCAD 代表“用可验证几何奖励激活通用 VLM 的参数化 CAD 组合能力”，是 Text2CAD 式 SFT 与 2026 agentic execution loop 之间的重要过渡。
+
+![ReCAD Figure 2 — parameterized code, hierarchical primitives, SFT and RL](https://arxiv.org/html/2512.06328v1/Figures/fig2_method.jpg)
+
+*原图：ReCAD Figure 2；[arXiv HTML](https://arxiv.org/html/2512.06328)。*
+
+#### 3.2.23 IterCAD — An Iterative Multimodal Agent for Visually-Grounded CAD Generation and Editing
+
+- **论文 / 版本**：[arXiv:2606.13368](https://arxiv.org/abs/2606.13368)（2026-06 预印本；截至本次核验未发现正式会议/期刊版本）。
+- **输入 / 输出**：多视图工程图、自然语言，或已有 CAD code + 增量编辑指令 → 可执行 CadQuery program。
+- **方法**：把生成与编辑统一成 agent 和 executable CAD sandbox 的多轮交互。OCCT 执行 code 后返回 compiler/error、正交视图和显式尺寸反馈；模型经 progressive SFT 与 geometry-aware RL 学习 `generate → verify → refine`，并用 Geometry-Viable Prefix Masking 避免失败后缀污染整条轨迹。
+- **评测贡献**：IterCAD-Bench 同时覆盖 drawing-to-code 和 local editing；CD-TR/AUC-TR 把不可执行样本计入，避免只对成功样本计算 Chamfer Distance 的 survivor bias。
+- **分类位置**：**B2 multimodal agentic CAD generation/editing**。有真实执行环境和多轮观察—修改闭环，但目标仍是静态参数化 CAD，不含 link–joint kinematics。
+
+![IterCAD Figure 2 — multimodal agent and executable CAD sandbox loop](https://arxiv.org/html/2606.13368v2/figures/pipeline.jpg)
+
+*原图：IterCAD Figure 2；[arXiv HTML](https://arxiv.org/html/2606.13368)。*
+
+#### 3.2.24 ArtisanCAD — An Industrial-Level CAD Agent with Expert-Grounded Knowledge Distillation
+
+- **论文 / 版本**：[arXiv:2607.05750](https://arxiv.org/abs/2607.05750)（2026-07 预印本；截至本次核验未发现正式会议/期刊版本）。
+- **输入 / 输出**：模糊的工业零件变体需求 + 检索到的 expert-derived part skill → CATIA-native、可编辑 B-Rep model。
+- **核心表示**：CAD-IR 将全局参数、所需工具、ordered operations、生成实体/依赖和 verification rules 统一为可执行中间表示；专家 CATIA macro、图纸说明与工程描述被蒸馏为可复用 skill，而不是一次性示例。
+- **闭环**：`skill retrieval → CAD-IR instantiate/rewrite → CATIA-MCP execute → multi-view visual feedback → IR patch`。Agent 修改 IR，不直接任意改后端脚本，从而保留专家操作顺序和 feature dependency。
+- **分类位置**：**B2 industrial agentic CAD / skill distillation**。贡献重点是工业 procedure、knowledge reuse 与 native CAD backend；当前工业验证集中在少量汽车零部件族，不能直接等同于开放世界通用 CAD。
+
+![ArtisanCAD Figure 2 — expert skill retrieval, CAD-IR, CATIA-MCP and visual refinement](https://arxiv.org/html/2607.05750v2/framework.png)
+
+*原图：ArtisanCAD Figure 2；[arXiv HTML](https://arxiv.org/html/2607.05750)。*
+
+#### 3.2.25 HierCAD — Hierarchical Text-to-CAD Design via Structure Alignment and Parameter Grounding
+
+- **论文 / 版本**：[arXiv:2607.11339](https://arxiv.org/abs/2607.11339)（2026-07 预印本；截至本次核验未发现正式会议/期刊版本）。
+- **输入 / 输出**：自然语言 → JSON/CAD construction sequence → static CAD solid。
+- **方法**：从 CAD sequence 抽出 `part → face → loop` construction tree，先监督 object-level global procedure（parts 与 Boolean operations），再监督 part-level local topology（closed primitive loops）。SAPG 将结构 reasoning span 与目标 CAD span 对齐，并以 structure-preserving parameter perturbation + ranking supervision 抑制数值复制捷径。
+- **分类位置**：**B2 hierarchical text-to-CAD sequence model**。它是单模型的层级监督与参数 grounding，不调用 CAD 环境做多轮 agent repair。
+- **最该记住的点**：HierCAD 说明长序列 CAD 的主要瓶颈不仅是模型大小，还包括 flat target 混合了结构与连续参数；显式层级监督能同时改善 topology 与 parameter fidelity。
+
+![HierCAD Figure 1 — global procedural and local topology supervision](https://arxiv.org/html/2607.11339v1/x1.png)
+
+*原图：HierCAD Figure 1；[arXiv HTML](https://arxiv.org/html/2607.11339)。*
+
+#### 3.2.26 RA-CAD — Learning Post-Execution Critique for State-Aware Text-to-CAD Generation
+
+- **论文 / 版本**：[arXiv:2608.05714](https://arxiv.org/abs/2608.05714)（2026-08 预印本；截至本次核验未发现正式会议/期刊版本）。
+- **输入 / 输出**：自然语言 design instruction → executable parametric CAD code；中间状态包含当前 code、执行结果和显式 critique。
+- **方法**：ReAct-style `Generate → Execute → Critique → Rewrite`。CAD Code Bootstrapping 先以 SFT 建立代码能力；Feedback-Driven Agent Optimization 再用 trajectory-level GRPO，把最终 F1/Chamfer reward 分配给整条 code + critique trajectory。
+- **关键差别**：执行后 critique 不再是固定 prompt、外部 reviewer 或不可训练的文字说明，而是 agent policy 的显式动作；它既决定是否终止，也产生下一轮 revision-oriented guidance。
+- **分类位置**：**B2 learned-critique CAD agent**。相比 IterCAD 强调多模态视觉与 sandbox，RA-CAD 的核心研究问题是“怎样学习使用反馈”。
+
+![RA-CAD Figure 2 — CCB and feedback-driven agent optimization](https://arxiv.org/html/2608.05714v1/Pipeline_2.png)
+
+*原图：RA-CAD Figure 2；[arXiv HTML](https://arxiv.org/html/2608.05714)。*
+
 ---
 
 ### B2 路线的关键对照
@@ -753,6 +829,12 @@ LLM 修改 model.py
 | Arko-T | text | Build123d code tokens | **是** | deterministic CAD kernel | named features/parameters + construction history |
 | CADSmith | text | CadQuery program | 由多 agent 分工，不是单序列模型 | CAD execution + programmatic geometry checks | 可编辑 static CAD；以尺寸/约束/拓扑验证修复 |
 | NURBGen | text | hybrid NURBS / analytic-primitive JSON | **是**，LLM 逐 token 生成 | Python 确定性转 BRep | 高保真、可编辑静态工业曲面；无 joint |
+| Design Alignment | unconstrained 2D sketch | constraints + dimensions | constraint generator | Fusion constraint solver 用作 alignment feedback | 保留修改传播关系；仅 2D sketch |
+| ReCAD | text / image | parameterized CAD code | **是**，单次 code generation | SFT + GRPO/RLVR；确定性执行 | 层级 primitive 与可编辑代码 |
+| IterCAD | drawing / text / source code + edit | CadQuery program over turns | agent policy，多轮 | OCCT sandbox + compiler/visual/dimension feedback | 可编辑 static CAD + local editing |
+| ArtisanCAD | variant request + expert skill | CAD-IR → CATIA-native B-Rep | agent 重写 IR | skill retrieval + CATIA-MCP + multi-view feedback | 工业 native feature/dependency |
+| HierCAD | text | hierarchical CAD sequence | **是**，自回归 | construction tree supervision + SAPG | topology 与参数均显式，可重放 |
+| RA-CAD | text | parametric code + learned critique | agent policy，多轮 | execution environment + trajectory-level GRPO | critique 驱动 rewrite/termination |
 
 ### B2 的数据基础（不是方法卡片）
 
@@ -799,7 +881,13 @@ LLM 修改 model.py
 | B2. 单体 — Static      | Arko-T              | text → Build123d program → parametric solid                       | design-state normalization + 4B Transformer                              | program 为目标时**是**；kernel 是确定性解释器                  | 无 agent；纯语言模型推理                           | named features/parameters、constraints 与 construction history |
 | B2. 单体 — Static      | CADSmith            | text → CadQuery program → static CAD solid                         | planning / code-generation / validation agents + kernel metrics + VLM Judge | **否**：多 agent、CAD 执行和验证—修复闭环                  | 三视图 VLM Judge + 程序化几何验证                        | 可编辑 CAD program；尺寸、约束、拓扑可程序化验证                   |
 | B2. 单体 — Static      | NURBGen             | text → hybrid NURBS / analytic-primitive JSON → BRep              | Qwen3-4B + LoRA；structured NURBS surface tokens                         | JSON 表示为目标时**是**；Python 转 BRep 是确定性解释器          | 无 agent；无执行—观察—修复闭环                        | 高保真、可编辑静态 NURBS/BRep CAD；无 joint                      |
+| B2. 单体 — Static      | ReCAD               | text / image → parameterized CAD code                              | VLM SFT + hierarchical primitive curriculum + GRPO/RLVR                  | code 为目标时**是**；推理不是执行反馈闭环                     | 多模态输入，无推理期 agent loop                        | 可执行、可编辑的静态参数化 code                                     |
+| B2. 单体 — Static      | IterCAD             | drawing / text / edit instruction → multi-turn CadQuery program    | multimodal agent + OCCT sandbox + geometry-aware RL + GVPM                | **否**：多轮执行、视觉/尺寸反馈与修复                          | 强视觉 + 语言 agent                                | static CAD generation + local editing                           |
+| B2. 单体 — Static      | ArtisanCAD          | variant request + expert skill → CAD-IR → CATIA-native B-Rep       | expert skill distillation + CAD-IR + CATIA-MCP + visual rewrite           | **否**：检索、执行和视觉迭代                                | 工业 CAD agent；多视图反馈                            | native feature/dependency 与工业 B-Rep                            |
+| B2. 单体 — Static      | HierCAD             | text → hierarchical CAD construction sequence                      | part/face/loop reasoning + structure alignment + parameter grounding       | sequence 为目标时**是**                                  | 无 agent；无执行反馈                                  | 保留 construction topology 与参数                                |
+| B2. 单体 — Static      | RA-CAD              | text → code ↔ execution feedback / critique                         | Generate–Execute–Critique–Rewrite + CCB + trajectory-level GRPO          | **否**：环境交互和多轮 rewrite                             | state-aware code agent；critique 为可学习动作             | 可执行 code 与显式诊断轨迹                                           |
 | B2 边界：2D sketch      | Vitruvion           | image / partial sketch / none → primitives + constraints          | 两个 autoregressive models + constraint solver                             | **否（最终 solved sketch 口径）**                        | 无 agent                                   | 可编辑 2D constraint graph；非完整 3D solid                         |
+| B2 边界：2D sketch      | Design Alignment    | unconstrained sketch → aligned constraints                         | constraint generator + solver feedback alignment                           | **否（完整系统口径）**：生成后需 constraint solver            | 无推理期 agent；solver 提供训练反馈                     | 修改参数后保持 design intent；非 3D solid                           |
 
 ---
 
@@ -860,7 +948,7 @@ LLM 修改 model.py
 
 ## 6. 严格意义上的端到端学习模型有哪些？
 
-### A. 文本 → CAD 操作序列 / 程序：Text2CAD、Arko-T、NURBGen
+### A. 文本 → CAD 操作序列 / 程序：Text2CAD、Arko-T、NURBGen、HierCAD、ReCAD
 
 - **原始输入**：自然语言。
 - **目标输出**：`Sketch → Extrude → ...` CAD construction tokens。
@@ -868,6 +956,8 @@ LLM 修改 model.py
 - **判断**：**是端到端学习模型**。但它生成静态单体 CAD，不预测部件关节，因此是本主题的表示方法基线，而非完整 articulated-object 方法。
 - **Arko-T**：同样是端到端学习模型，但目标是可执行 Build123d code，而非 Text2CAD 的受限量化 command vocabulary；CAD kernel 只负责确定性执行生成程序。
 - **NURBGen**：同样由单个 LLM 把文本自回归地映射为 hybrid NURBS / analytic-primitive JSON；随后 Python 将 JSON 确定性转换为 BRep。它绕开 design-history token，而以可编辑的曲面参数作为生成目标。
+- **HierCAD**：也是 text → CAD sequence 的单模型自回归映射，但先显式输出 object-level procedure 与 part-level topology reasoning，再预测参数；SAPG 属于训练策略，不是推理期外部修复。
+- **ReCAD**：text/image → parameterized code 是单次学习式生成；GRPO 与几何/语义 reward 用于 post-training。不要因为它使用 RLVR 就把它误写成推理期 agent loop。
 
 ### B. 点云 → CAD 操作序列：TransCAD
 
@@ -912,6 +1002,7 @@ LLM 修改 model.py
 - **SkexGen**：topology/geometry/extrusion code selector 与分支 decoders 构成学习式生成系统，但输入主要是采样或指定的内部 codes，不是 text/image/point cloud 等原始用户模态。
 - **STEP-LLM**：核心 LLM 确实直接生成 STEP tokens，但完整方法可在推理时检索相似 STEP 示例，因此按“仅原始文本 → 单模型 → STEP”的严格口径不算纯端到端。
 - **Vitruvion**：两个自回归模型生成 primitives/constraints，最后还需 CAD constraint solver；不要把“自回归”误当成“端到端”。
+- **Design Alignment**：constraint generator 后接 Fusion solver；论文重点是用 solver feedback 做 alignment，使参数修改时保持 design intent，而不是完整 3D CAD generation。
 - **SolidGen / BrepGen**：二者都直接建模 B-Rep，但“直接输出目标表示”不自动等于本文所说的“单模型一次前向”；前者分三阶段自回归，后者使用层级 diffusion modules。
 
 ### 明确不属于端到端学习模型的方法
@@ -924,6 +1015,9 @@ LLM 修改 model.py
 - **ArtiCAD**：Design、Generation、Assembly、Review 多 agent，加 FreeCAD 执行、视觉审查和 rollback。
 - **Articraft**：代码 agent 反复执行 `edit → compile/probe/test → repair`。
 - **CADSmith**：规划、CadQuery 代码生成和程序化几何验证为多 agent 闭环，不能视为单模型端到端学习。
+- **IterCAD**：agent 在 OCCT sandbox 中多轮生成/编辑 CadQuery，并读取 compiler、render 与 dimension feedback。
+- **ArtisanCAD**：检索专家 skill、实例化/重写 CAD-IR、调用 CATIA-MCP 并依据多视图反馈迭代。
+- **RA-CAD**：显式生成 critique，再以执行结果决定 rewrite 或 termination；code 与 critique policy 共同做 trajectory-level 优化。
 - **Interact3D**：image edit、TRELLIS2 重建、PartField 分割、两阶段 registration/SDF optimization 与 VLM repair 串联。
 - **SimFoundry**：depth/segmentation、2D-to-3D、pose alignment、articulation、physics annotation/stabilization 和 augmentation 串联。
 - **SceneSmith**：五个层级 stage，每个 stage 都含 Designer–Critic–Orchestrator 交互，还要生成/检索资产并做物理后处理。
@@ -946,6 +1040,9 @@ LLM 修改 model.py
 | 强视觉 + 语言 multi-agent | LAM | geometry render、motion image sequence；可选 3D point-cloud critic | Link Designer 规划；Geometry / Articulation Coders 写代码；Checkers / Fixers 诊断和修复 | code/debug → render / simulate motion → VLM critique → repair |
 | 纯代码/语言 agent | Articraft | 可选参考图，但**不使用 image-based feedback** | LLM 编写 SDK 程序 | compile、probe、tests、structured QC |
 | 程序化几何验证 multi-agent | CADSmith | 独立 VLM Judge 审查生成 CAD 的三视图 render，并与 kernel metrics 合用 | 规划、CadQuery 代码生成、验证 agents 分工 | 执行错误内层修复；尺寸/体积/拓扑/VLM 判断驱动外层几何修复 |
+| 多模态静态 CAD agent | IterCAD | 工程图、OCCT 正交 render 与尺寸标注 | 解析 drawing/text/edit instruction，生成 CadQuery reasoning+code | 多轮 code → execute → visual/dimension feedback → refine |
+| 工业 skill-guided CAD agent | ArtisanCAD | CATIA 多视图 board | 检索专家 skill，实例化和 patch CAD-IR | CATIA-MCP execution + visual feedback → IR rewrite |
+| learned-critique CAD agent | RA-CAD | 视觉不是必要条件；主要观察执行结果/几何 reward | 生成 code、显式 critique 与 rewrite | Generate–Execute–Critique–Rewrite；critique 为策略动作 |
 | 强视觉 + 语言 agent | Articulate-Anything | 输入图像/视频；VLM critic 看结果 | actor 写高层 Python、解释 affordance | actor–critic 迭代修复 link placement 与 joint |
 | 强视觉 + 语言 scene agent | SceneAssistant | 当前场景 render、标签和 HUD 坐标 | ReAct 推理并选择 atomic Action APIs | 纯视觉反馈闭环；不依赖专门 layout solver |
 | 层级 VLM multi-agent | SceneSmith | Designer/Critic 可看 render 与 scene state | Designer 提案、Critic 评分、Orchestrator 接受/回滚 | 每个 layout/furniture/manipuland stage 独立迭代 |
@@ -954,7 +1051,7 @@ LLM 修改 model.py
 | 自动化多模型 pipeline，非典型 agent | SimFoundry | video、RGB-D、mask、point cloud | VLM 做场景理解、物理属性和 task cousins | 预设 Extraction→Generation→Augmentation；物理 simulator sanity check |
 | LLM + 3D encoder pipeline，非 agent | ArtiWorld / Arti4URDF | global/part point clouds 被编码为 LLM tokens | 候选选择与 JSON/URDF 自回归生成 | 没有根据 render/physics 结果自主修复的闭环 |
 | 无 agent 的视觉/3D 模型 | URDF-Anything、FreeArt3D、ATOP | 点云、图片、multi-view motion | 文本作为条件或 motion intent | 模型/优化迭代，不是工具调用 agent |
-| 无 agent 的结构生成模型 | NAP、ArtFormer、ArtLLM、DeepCAD、SkexGen、Text2CAD、TransCAD、CSGNet、UCSG-Net、SolidGen、BrepGen、SECAD-Net、Arko-T、NURBGen、Vitruvion | 无条件、文本、图像、voxel、点云或已有结构分别作为条件 | graph / tree / layout + mesh / program / command / NURBS / B-Rep / constraint tokens | 训练期损失；推理期没有基于环境反馈的自我修复 |
+| 无 agent 的结构生成模型 | NAP、ArtFormer、ArtLLM、DeepCAD、SkexGen、Text2CAD、TransCAD、CSGNet、UCSG-Net、SolidGen、BrepGen、SECAD-Net、Arko-T、NURBGen、HierCAD、ReCAD、Vitruvion、Design Alignment | 无条件、文本、图像、voxel、点云或已有结构分别作为条件 | graph / tree / layout + mesh / program / command / NURBS / B-Rep / constraint tokens | 训练期损失或 RL；推理期没有基于环境反馈的自主修复 |
 | 检索增强生成，仍非 agent | STEP-LLM | 无视觉；检索的是结构相近的 STEP 示例 | 文本指令与 retrieved STEP context 条件化生成 | 检索在生成前提供上下文，不构成观察—行动—修复闭环 |
 | 人机交互式 CAD，仍非 agent | Sketch2CAD (2020) | 用户 strokes + 当前 CAD depth/normal context | 每轮用户决定下一步草图意图 | 网络不会自主选择下一项设计目标；后接参数拟合与 CAD 执行 |
 
@@ -1005,13 +1102,13 @@ LLM 修改 model.py
 
 ### 如果目标是做 agentic 3D / CAD 工程
 
-`Articulate-Anything → LAM → ArtiCAD → Articraft`
+`CADSmith → IterCAD → RA-CAD → ArtisanCAD`（static CAD feedback/skill 线）与 `Articulate-Anything → LAM → ArtiCAD → Articraft`（articulated 线）
 
-先理解 VLM actor–critic 如何把视觉理解接进 URDF；再看 LAM 如何用统一代码共同设计 geometry 与 articulation；随后看 ArtiCAD 怎样用 Connector 解耦“装配关系”和“零件几何”；最后看 Articraft 怎样把专用 SDK、harness 与几何验证做成可扩展数据生成系统。
+静态 CAD 线依次比较程序化验证、多模态 sandbox、多轮可学习 critique、专家 skill/CAD-IR；articulated 线先理解 VLM actor–critic 如何把视觉理解接进 URDF，再看统一代码、Connector 与 trusted harness 怎样承载 geometry、joint 和修复。
 
 ### 如果目标是做端到端学习模型
 
-`CSGNet / UCSG-Net / SECAD-Net → Text2CAD / Arko-T → TransCAD → ArtFormer → URDF-Anything / Arti4URDF`，另读 `NAP` 作为 articulation generative prior。
+`CSGNet / UCSG-Net / SECAD-Net → Text2CAD → HierCAD / ReCAD → Arko-T → TransCAD → ArtFormer → URDF-Anything / Arti4URDF`，另读 `NAP` 作为 articulation generative prior。
 
 前三篇展示 raster shape 到可解释 CAD/CSG 参数的端到端逆向解析；Text2CAD / Arko-T 对比受限 CAD tokens 与通用参数化程序；TransCAD 对应点云到 CAD sequence；ArtFormer 对应条件到关节部件树；URDF-Anything / Arti4URDF 对应 3D 几何到 URDF。NAP 则回答如何直接学习关节对象的结构分布。
 
@@ -1025,7 +1122,7 @@ LLM 修改 model.py
 
 先读 B2 表示主线：
 
-`CSGNet / UCSG-Net（CSG program）→ Vitruvion（2D constraints）→ SECAD-Net（self-supervised sketch-extrude）→ DeepCAD（并行 sequence AE）→ SkexGen（解耦 codebooks）→ Text2CAD（text-conditioned command tokens）→ Arko-T（text-to-design program）→ TransCAD（point-cloud reverse engineering）→ SolidGen / BrepGen（direct B-Rep）→ STEP-LLM（直接 STEP text）`
+`CSGNet / UCSG-Net（CSG program）→ Vitruvion → Design Alignment（constraint/design intent）→ SECAD-Net → DeepCAD → SkexGen → Text2CAD → HierCAD / ReCAD → Arko-T → TransCAD → SolidGen / BrepGen → STEP-LLM`
 
 交互式支线读 `Sketch2CAD (2020)`；再进入 articulated / agent 工程：`LAM → ArtiCAD → Articraft`。
 
@@ -1052,6 +1149,7 @@ SimFoundry 的主语是“重建整个环境”；ArtiWorld 的主语是“把�
 3. **能否用 Articraft-10K 的程序与 agent trace 训练一个小型初始化器，再用 ArtiCAD 风格的局部 rollback 修复复杂装配？**
 4. **评测如何同时覆盖外观、关节轴、运动范围、无干涉、可制造性和可编辑性？**只用 Chamfer、CLIP 或 VLM score 都不够。
 5. **如何表示闭链与多自由度机构？**当前许多方法假设 kinematic tree；真实机械装配里的四连杆、齿轮、约束耦合仍是明显空白。
+6. **能否把 design alignment 从 2D sketch 推进到完整 3D/装配？**不仅检查初始几何，还要在尺寸、feature、connector 或 joint 参数修改后验证依赖关系、装配与运动意图是否保持。
 
 ---
 
@@ -1089,7 +1187,7 @@ SimFoundry 的主语是“重建整个环境”；ArtiWorld 的主语是“把�
 |---|---|---|---|
 | 真实物体数字孪生 | 视觉/点云重建 → URDF | Articulate-Anything、URDF-Anything、Arti4URDF | 部件分割、尺度、joint 轴/限位、碰撞 |
 | 从零批量生成可动资产 | 程序化 part/joint + harness | Articraft、LAM、ArtiCAD | 可执行代码、局部错误定位、运动测试 |
-| 静态可编辑工程 CAD | text/point cloud → CAD program/B-Rep | Text2CAD、Arko-T、TransCAD、CADSmith、NURBGen | 尺寸、拓扑、约束、feature history |
+| 静态可编辑工程 CAD | text/image/point cloud → CAD program/B-Rep | Text2CAD、HierCAD、ReCAD、Arko-T、TransCAD、CADSmith、IterCAD、RA-CAD、NURBGen | 尺寸、拓扑、约束、feature history、执行反馈 |
 | 快速视觉原型或游戏资产 | mesh-first / 生成式几何 | ArtLLM、扩散式 3D 生成 | 视觉质量、部件一致性；必要时再 CAD 精修 |
 | 生产级 CAD 工作流 | 商业 CAD Agent/平台 + 企业数据 | Zoo 等产品化服务或既有 CAD 平台 API | 格式互操作、权限、版本、制造与责任边界 |
 
@@ -1117,6 +1215,12 @@ SimFoundry 的主语是“重建整个环境”；ArtiWorld 的主语是“把�
 - [Text2CAD / NeurIPS 2024](https://arxiv.org/abs/2409.17106)
 - [CADSmith / arXiv 2026](https://arxiv.org/abs/2603.26512)
 - [NURBGen / AAAI 2026](https://ojs.aaai.org/index.php/AAAI/article/download/37922/41884)
+- [Design Alignment / ICCV 2025](https://www.research.autodesk.com/publications/aligning-constraint-generation-design-intent-parametric-cad/)
+- [ReCAD / AAAI 2026](https://ojs.aaai.org/index.php/AAAI/article/view/37544)
+- [IterCAD / arXiv 2026](https://arxiv.org/abs/2606.13368)
+- [ArtisanCAD / arXiv 2026](https://arxiv.org/abs/2607.05750)
+- [HierCAD / arXiv 2026](https://arxiv.org/abs/2607.11339)
+- [RA-CAD / arXiv 2026](https://arxiv.org/abs/2608.05714)
 - [STEP-LLM / DATE 2026](https://arxiv.org/abs/2601.12641)
 - [TransCAD / ECCV 2024](https://arxiv.org/abs/2407.12702)
 - [Sketch2CAD / SIGGRAPH Asia 2020](https://geometry.cs.ucl.ac.uk/projects/2020/sketch2cad/)
